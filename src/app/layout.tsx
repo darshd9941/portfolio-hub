@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Darsh | Creative Director & AI Workflow Builder",
+  title: "Darsh | Designer, Creative Director & AI Workflow Builder",
   description:
-    "Creative direction, AI workflow design, and practical tools for solving creative production problems.",
+    "Design, creative direction, AI workflow design, and practical systems for solving creative production problems.",
 };
 
 export default function RootLayout({
