@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio Hub",
+  title: "Darsh | Creative Director & AI Workflow Builder",
   description:
-    "A public portfolio with a private dashboard foundation for projects, apps, and server tools.",
+    "Creative direction, AI workflow design, and practical tools for solving creative production problems.",
 };
 
 export default function RootLayout({
