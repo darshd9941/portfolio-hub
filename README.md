@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Hub
 
-## Getting Started
+A Next.js portfolio site with a public homepage and a private dashboard foundation.
 
-First, run the development server:
+## Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Safety
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The `/dashboard` route is protected in production by `src/proxy.ts`.
 
-## Learn More
+Set these environment variables in the hosting provider before using the dashboard:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+DASHBOARD_USER=your-username
+DASHBOARD_PASSWORD=use-a-long-random-password
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If those values are missing in production, `/dashboard` returns `404`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy Fast With Vercel
 
-## Deploy on Vercel
+1. Push this repo to GitHub.
+2. Import the repo in Vercel.
+3. Add `DASHBOARD_USER` and `DASHBOARD_PASSWORD` in Vercel project settings.
+4. Add your custom domain in Vercel.
+5. Point your domain DNS records to Vercel.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run lint
+npm run build
+npm run dev
+```
