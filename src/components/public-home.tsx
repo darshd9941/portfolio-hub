@@ -11,6 +11,7 @@ import {
   Wand2,
 } from "lucide-react";
 import { useMemo, useState } from "react";
+import { ChatBot } from "./chatbot";
 
 export type PublicRepo = {
   name: string;
@@ -451,6 +452,8 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
           </div>
         </footer>
       </div>
+
+      <ChatBot />
     </main>
   );
 }
