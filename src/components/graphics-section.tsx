@@ -10,18 +10,18 @@ type Campaign = {
 };
 
 const campaigns: Campaign[] = [
-  { id: 1, title: "Urbanspace Bedsheet Collection", subtitle: "Product catalog ads", images: ["/graphics/bedsheets/1.jpg", "/graphics/bedsheets/2.jpg", "/graphics/bedsheets/3.jpg", "/graphics/bedsheets/4.jpg"] },
-  { id: 2, title: "Embroidered Curtain Series", subtitle: "Digital campaign for luxury curtains", images: ["/graphics/curtains/1.jpg", "/graphics/curtains/2.jpg", "/graphics/curtains/3.jpg"] },
-  { id: 3, title: "Winter Comforter Campaign", subtitle: "Seasonal comforter range", images: ["/graphics/winter/1.png", "/graphics/winter/2.png", "/graphics/winter/3.png", "/graphics/winter/4.png"] },
-  { id: 4, title: "Festive Gift Box Packaging", subtitle: "Wedding & festive designs", images: ["/graphics/giftbox/1.jpg", "/graphics/giftbox/2.jpg"] },
-  { id: 5, title: "Carpet Showcase", subtitle: "Carpet collection ads", images: ["/graphics/carpets/1.jpg", "/graphics/carpets/2.jpg", "/graphics/carpets/3.jpg"] },
-  { id: 6, title: "Google Ads Campaign", subtitle: "Performance marketing creatives", images: ["/graphics/google-ads/1.jpg"] },
-  { id: 7, title: "Instagram Story Ads", subtitle: "Social media creatives", images: ["/graphics/story-ads/1.jpg", "/graphics/story-ads/2.jpg", "/graphics/story-ads/3.jpg"] },
-  { id: 8, title: "Window Blinds Launch", subtitle: "Product launch campaign", images: ["/graphics/blinds/1.png", "/graphics/blinds/2.png", "/graphics/blinds/3.png"] },
-  { id: 9, title: "Payday Sale Campaign", subtitle: "Promotional sale creatives", images: ["/graphics/payday/1.jpg", "/graphics/payday/2.jpg", "/graphics/payday/3.jpg"] },
-  { id: 10, title: "Diwali Special Collection", subtitle: "Festive season campaign", images: ["/graphics/diwali/1.jpg", "/graphics/diwali/2.jpg", "/graphics/diwali/3.jpg"] },
-  { id: 11, title: "September 2025 Drop", subtitle: "Monthly product drop", images: ["/graphics/september/1.jpg", "/graphics/september/2.png", "/graphics/september/3.png"] },
-  { id: 12, title: "Tofy Bedsheet Ads", subtitle: "E-commerce listing ads", images: ["/graphics/tofy/1.jpg", "/graphics/tofy/2.jpg", "/graphics/tofy/3.jpg"] },
+  { id: 1, title: "Urbanspace Bedsheet Collection", subtitle: "Product catalog ads", images: ["/graphics/bedsheets/1.webp", "/graphics/bedsheets/2.webp", "/graphics/bedsheets/3.webp", "/graphics/bedsheets/4.webp"] },
+  { id: 2, title: "Embroidered Curtain Series", subtitle: "Digital campaign for luxury curtains", images: ["/graphics/curtains/1.webp", "/graphics/curtains/2.webp", "/graphics/curtains/3.webp"] },
+  { id: 3, title: "Winter Comforter Campaign", subtitle: "Seasonal comforter range", images: ["/graphics/winter/1.webp", "/graphics/winter/2.webp", "/graphics/winter/3.webp", "/graphics/winter/4.webp"] },
+  { id: 4, title: "Festive Gift Box Packaging", subtitle: "Wedding & festive designs", images: ["/graphics/giftbox/1.webp", "/graphics/giftbox/2.webp"] },
+  { id: 5, title: "Carpet Showcase", subtitle: "Carpet collection ads", images: ["/graphics/carpets/1.webp", "/graphics/carpets/2.webp", "/graphics/carpets/3.webp"] },
+  { id: 6, title: "Google Ads Campaign", subtitle: "Performance marketing creatives", images: ["/graphics/google-ads/1.webp"] },
+  { id: 7, title: "Instagram Story Ads", subtitle: "Social media creatives", images: ["/graphics/story-ads/1.webp", "/graphics/story-ads/2.webp", "/graphics/story-ads/3.webp"] },
+  { id: 8, title: "Window Blinds Launch", subtitle: "Product launch campaign", images: ["/graphics/blinds/1.webp", "/graphics/blinds/2.webp", "/graphics/blinds/3.webp"] },
+  { id: 9, title: "Payday Sale Campaign", subtitle: "Promotional sale creatives", images: ["/graphics/payday/1.webp", "/graphics/payday/2.webp", "/graphics/payday/3.webp"] },
+  { id: 10, title: "Diwali Special Collection", subtitle: "Festive season campaign", images: ["/graphics/diwali/1.webp", "/graphics/diwali/2.webp", "/graphics/diwali/3.webp"] },
+  { id: 11, title: "September 2025 Drop", subtitle: "Monthly product drop", images: ["/graphics/september/1.webp", "/graphics/september/2.webp", "/graphics/september/3.webp"] },
+  { id: 12, title: "Tofy Bedsheet Ads", subtitle: "E-commerce listing ads", images: ["/graphics/tofy/1.webp", "/graphics/tofy/2.webp", "/graphics/tofy/3.webp"] },
 ];
 
 const scatterOffsets = [
