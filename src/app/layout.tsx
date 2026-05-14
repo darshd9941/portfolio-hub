@@ -32,6 +32,10 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Darsh" }],
   creator: "Darsh",
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -82,7 +86,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="256x256" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
         <link rel="canonical" href="https://darsh.us" />
       </head>
       <body className="min-h-full flex flex-col">
