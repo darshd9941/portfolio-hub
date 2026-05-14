@@ -169,7 +169,7 @@ export function GraphicsSection() {
                         >
                           <img
                             src={src}
-                            alt=""
+                            alt={`${campaign.title} — ad creative ${i + 1}`}
                             className="h-full w-full object-cover"
                             draggable={false}
                           />

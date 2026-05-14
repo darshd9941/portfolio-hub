@@ -163,7 +163,7 @@ export default async function CampaignPage({
               >
                 <img
                   src={src}
-                  alt={`${campaign.title} — visual ${i + 1}`}
+                  alt={`${campaign.title} — visual ${i + 1} of ${campaign.images.length}`}
                   className="w-full object-cover transition duration-500 group-hover:scale-[1.02]"
                 />
               </div>
