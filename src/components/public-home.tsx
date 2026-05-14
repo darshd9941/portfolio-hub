@@ -183,7 +183,7 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
       </div>
 
       <div className="relative z-10">
-        <nav className="sticky top-0 z-50 border-b border-[#f5f0e8]/10" style={{ backgroundColor: 'rgba(5,5,5,0.85)', backdropFilter: 'blur(20px)' }}>
+        <nav className="fixed left-0 right-0 top-0 z-50 border-b border-[#f5f0e8]/10" style={{ backgroundColor: 'rgba(5,5,5,0.9)', backdropFilter: 'blur(20px)' }}>
           <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
           <a className="font-mono text-sm uppercase tracking-[0.18em] text-[#f5f0e8]" href="#">
             Darsh.us
@@ -211,7 +211,7 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
           </div>
         </nav>
 
-        <section className="mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl gap-10 px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <section className="mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl gap-10 px-5 pb-14 pt-24 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
             <div className="flex flex-wrap gap-2">
               {["Designer", "Creative director", "AI workflow adaptor"].map((label) => (
