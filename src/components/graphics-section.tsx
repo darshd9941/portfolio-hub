@@ -1,6 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import { Volume2, VolumeX } from "lucide-react";
+import { initAudio, playTick, playHover, startAmbient, stopAmbient } from "@/lib/sounds";
 
 type Campaign = {
   id: number;
@@ -36,6 +38,9 @@ const scatterOffsets = [
 export function GraphicsSection() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [soundEnabled, setSoundEnabled] = useState(false);
+  const audioInitedRef = useRef(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent, id: number) => {
@@ -46,19 +51,81 @@ export function GraphicsSection() {
     [hoveredId],
   );
 
+  // Init audio on first interaction
+  useEffect(() => {
+    const handler = () => {
+      if (!audioInitedRef.current) {
+        initAudio();
+        audioInitedRef.current = true;
+      }
+    };
+    window.addEventListener("scroll", handler, { once: true, passive: true });
+    window.addEventListener("click", handler, { once: true });
+    return () => {
+      window.removeEventListener("scroll", handler);
+      window.removeEventListener("click", handler);
+    };
+  }, []);
+
+  // Ambient sound when section is in view
+  useEffect(() => {
+    if (!soundEnabled || !sectionRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startAmbient();
+        } else {
+          stopAmbient();
+        }
+      },
+      { threshold: 0.3 },
+    );
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, [soundEnabled]);
+
+  const toggleSound = useCallback(() => {
+    if (!audioInitedRef.current) {
+      initAudio();
+      audioInitedRef.current = true;
+    }
+    setSoundEnabled((prev) => !prev);
+  }, []);
+
+  const handleMouseEnterCampaign = useCallback(
+    (id: number) => {
+      setHoveredId(id);
+      if (soundEnabled) playHover();
+    },
+    [soundEnabled],
+  );
+
   return (
-    <section className="border-y border-[#f5f0e8]/10 bg-[#0b0b0b] px-5 py-20 sm:px-8" id="graphics">
+    <section
+      ref={sectionRef}
+      className="border-y border-[#f5f0e8]/10 bg-[#0b0b0b] px-5 py-20 sm:px-8"
+      id="graphics"
+    >
       <div className="mx-auto max-w-7xl">
-        <div className="mb-16">
-          <p className="font-mono text-sm uppercase tracking-[0.18em] text-[#6affcc]">
-            Visual work
-          </p>
-          <h2 className="mt-4 text-5xl font-semibold leading-[0.98] text-[#f5f0e8] sm:text-7xl">
-            Ad campaigns & visual storytelling.
-          </h2>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-[#bdb4aa]">
-            Hover to explore — each campaign reveals its creative work.
-          </p>
+        <div className="mb-16 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+          <div>
+            <p className="font-mono text-sm uppercase tracking-[0.18em] text-[#6affcc]">
+              Visual work
+            </p>
+            <h2 className="mt-4 text-5xl font-semibold leading-[0.98] text-[#f5f0e8] sm:text-7xl">
+              Ad campaigns & visual storytelling.
+            </h2>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#bdb4aa]">
+              Hover to explore — each campaign reveals its creative work.
+            </p>
+          </div>
+          <button
+            onClick={toggleSound}
+            className="inline-flex h-10 shrink-0 items-center gap-2 rounded-md border border-[#f5f0e8]/18 bg-[#f5f0e8]/7 px-4 font-mono text-xs uppercase tracking-[0.12em] text-[#bdb4aa] transition hover:border-[#6affcc] hover:text-[#6affcc]"
+          >
+            {soundEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
+            {soundEnabled ? "Sound on" : "Sound off"}
+          </button>
         </div>
 
         <div className="flex flex-col">
@@ -69,7 +136,7 @@ export function GraphicsSection() {
               <div
                 key={campaign.id}
                 className="group relative cursor-default select-none"
-                onMouseEnter={() => setHoveredId(campaign.id)}
+                onMouseEnter={() => handleMouseEnterCampaign(campaign.id)}
                 onMouseLeave={() => setHoveredId(null)}
                 onMouseMove={(e) => handleMouseMove(e, campaign.id)}
               >
@@ -101,7 +168,6 @@ export function GraphicsSection() {
                   }`}
                 />
 
-                {/* Thumbnails */}
                 {isHovered && (
                   <div
                     className="pointer-events-none absolute z-50"
@@ -109,6 +175,12 @@ export function GraphicsSection() {
                   >
                     {campaign.images.map((src, i) => {
                       const offset = scatterOffsets[i % scatterOffsets.length];
+
+                      // Play tick sound for each thumbnail
+                      if (soundEnabled) {
+                        setTimeout(() => playTick(), i * 70);
+                      }
+
                       return (
                         <div
                           key={`${campaign.id}-${i}`}
