@@ -236,10 +236,10 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#6affcc] px-5 text-sm font-bold text-[#06120f] transition hover:bg-[#9dffe1]"
-                href="#studio"
+                href="#contact"
               >
                 <Sparkles size={18} />
-                Enter the workshop
+                Got a problem? Let's solve it
               </a>
               <a
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-[#f5f0e8]/18 px-5 text-sm font-bold text-[#f5f0e8] transition hover:border-[#ff6a4a] hover:text-[#ff8b70]"
@@ -345,6 +345,16 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
               </h2>
             </div>
             <div className="grid gap-3" id="contact">
+              <a
+                className="flex items-center justify-between rounded-lg border border-[#6affcc]/45 bg-[#6affcc] p-5 text-[#050505] transition hover:bg-[#9dffe1]"
+                href="mailto:hello@darsh.us"
+              >
+                <span className="text-2xl font-semibold">Send a message</span>
+                <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em]">
+                  Email
+                  <ArrowUpRight size={15} />
+                </span>
+              </a>
               {socialLinks.map((link) => (
                 <a
                   className={`flex items-center justify-between rounded-lg border p-5 transition ${
