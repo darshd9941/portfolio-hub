@@ -280,14 +280,18 @@ export function ChatBot() {
 
         {/* FAQ chips — always show after bot responses */}
         {!isTyping && messages.length > 0 && messages[messages.length - 1].role === "bot" && (
-          <div className="shrink-0 border-t border-[#f5f0e8]/10 bg-[#0a0a0a] px-4 py-3">
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[#8d867e]">
-              More questions
-            </p>
-            <div className="flex flex-wrap gap-1.5">
+          <div className={`shrink-0 border-t border-[#f5f0e8]/10 bg-[#0a0a0a] ${messages.length <= 1 ? 'px-4 py-3' : 'px-3 py-2'}`}>
+            {messages.length <= 1 && (
+              <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[#8d867e]">
+                Quick questions
+              </p>
+            )}
+            <div className={`flex flex-wrap ${messages.length <= 1 ? 'gap-1.5' : 'gap-1'}`}>
               {faqChips.map((chip) => (
                 <button
-                  className="rounded-md border border-[#f5f0e8]/12 bg-[#f5f0e8]/5 px-2.5 py-1.5 text-[11px] font-medium text-[#bdb4aa] transition hover:border-[#6affcc]/50 hover:bg-[#6affcc]/10 hover:text-[#6affcc]"
+                  className={`rounded-md border border-[#f5f0e8]/12 bg-[#f5f0e8]/5 font-medium text-[#bdb4aa] transition hover:border-[#6affcc]/50 hover:bg-[#6affcc]/10 hover:text-[#6affcc] ${
+                    messages.length <= 1 ? 'px-2.5 py-1.5 text-[11px]' : 'px-2 py-1 text-[10px]'
+                  }`}
                   key={chip}
                   onClick={() => handleSend(chip)}
                   type="button"

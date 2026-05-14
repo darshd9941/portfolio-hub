@@ -183,7 +183,7 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
       </div>
 
       <div className="relative z-10">
-        <nav className="sticky top-0 z-50 border-b border-[#f5f0e8]/10 bg-[#050505]/80 backdrop-blur-xl">
+        <nav className="sticky top-0 z-50 border-b border-[#f5f0e8]/10" style={{ backgroundColor: 'rgba(5,5,5,0.85)', backdropFilter: 'blur(20px)' }}>
           <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
           <a className="font-mono text-sm uppercase tracking-[0.18em] text-[#f5f0e8]" href="#">
             Darsh.us
