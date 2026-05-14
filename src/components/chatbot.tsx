@@ -278,11 +278,11 @@ export function ChatBot() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* FAQ chips */}
-        {messages.length <= 1 && (
+        {/* FAQ chips — always show after bot responses */}
+        {!isTyping && messages.length > 0 && messages[messages.length - 1].role === "bot" && (
           <div className="shrink-0 border-t border-[#f5f0e8]/10 bg-[#0a0a0a] px-4 py-3">
             <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[#8d867e]">
-              Quick questions
+              More questions
             </p>
             <div className="flex flex-wrap gap-1.5">
               {faqChips.map((chip) => (

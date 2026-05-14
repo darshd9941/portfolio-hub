@@ -183,7 +183,8 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
       </div>
 
       <div className="relative z-10">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
+        <nav className="sticky top-0 z-50 border-b border-[#f5f0e8]/10 bg-[#050505]/80 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
           <a className="font-mono text-sm uppercase tracking-[0.18em] text-[#f5f0e8]" href="#">
             Darsh.us
           </a>
@@ -207,6 +208,7 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
             <Radio size={16} />
             X / Darshd9941
           </a>
+          </div>
         </nav>
 
         <section className="mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl gap-10 px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
