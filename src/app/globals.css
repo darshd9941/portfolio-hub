@@ -46,3 +46,14 @@ a {
     transform: translateX(-50%);
   }
 }
+
+@keyframes thumbPopIn {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg) scale(0.3);
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

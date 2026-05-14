@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { ChatBot } from "./chatbot";
+import { GraphicsSection } from "./graphics-section";
 
 export type PublicRepo = {
   name: string;
@@ -187,7 +188,7 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
             Darsh.us
           </a>
           <div className="hidden items-center gap-6 text-sm text-[#aaa29a] md:flex">
-            {["Studio", "Proof", "Signals", "Projects"].map((item) => (
+            {["Studio", "Proof", "Graphics", "Signals", "Projects"].map((item) => (
               <a
                 className="transition hover:text-[#6affcc]"
                 href={`#${item.toLowerCase()}`}
@@ -366,6 +367,8 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
             </div>
           </div>
         </section>
+
+        <GraphicsSection />
 
         <section className="border-y border-[#f5f0e8]/10 bg-[#f5f0e8] px-5 py-20 text-[#050505] sm:px-8" id="projects">
           <div className="mx-auto max-w-7xl">
