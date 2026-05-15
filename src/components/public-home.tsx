@@ -4,11 +4,9 @@ import {
   ArrowUpRight,
   Braces,
   ExternalLink,
-  Eye,
   Layers3,
   Menu,
   Radio,
-  Sparkles,
   Wand2,
   X,
 } from "lucide-react";
@@ -245,83 +243,64 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
         </nav>
 
         {/* Hero */}
-        <section className="mx-auto grid min-h-screen max-w-7xl gap-8 px-4 pb-10 pt-20 sm:px-8 sm:pt-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-10 lg:pb-14">
-          <div>
-            <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {["Designer", "Creative director", "AI workflow adaptor"].map((label) => (
-                <span
-                  className="rounded-md border border-[#f5f0e8]/16 bg-[#f5f0e8]/7 px-2 py-1.5 text-xs text-[#c9c1b7] sm:px-3 sm:py-2 sm:text-sm"
-                  key={label}
-                >
-                  {label}
-                </span>
-              ))}
-            </div>
-            <h1 className="mt-5 text-5xl font-semibold leading-[0.92] text-[#f5f0e8] sm:mt-7 sm:text-7xl lg:text-9xl">
-              Taste.
-              <br />
-              Tools.
-              <br />
-              Trouble.
-            </h1>
-            <p className="mt-5 max-w-xl text-base leading-7 text-[#bdb4aa] sm:mt-8 sm:max-w-2xl sm:text-lg sm:leading-8 lg:text-xl">
-              I am Darsh, a designer and creative director building sharper
-              ways to make things. I care about taste first, then use AI,
-              systems, and code to move faster without losing the point of view.
+        <section className="flex min-h-screen flex-col justify-center px-4 pb-16 pt-24 sm:px-8 sm:pt-28 lg:pb-20">
+          <div className="mx-auto w-full max-w-5xl">
+            {/* Role line */}
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#6affcc] sm:text-sm">
+              Designer & Creative Director — Ahmedabad, India
             </p>
-            <div className="mt-6 flex flex-col gap-2 sm:mt-9 sm:flex-row sm:gap-3">
+
+            {/* Headline */}
+            <h1 className="mt-5 text-5xl font-bold leading-[0.88] tracking-tight text-[#f5f0e8] sm:mt-6 sm:text-7xl md:text-8xl lg:text-[9rem]">
+              I design things
+              <br />
+              that actually
+              <br />
+              <span className="text-[#6affcc]">work.</span>
+            </h1>
+
+            {/* Description */}
+            <p className="mt-6 max-w-xl text-base leading-7 text-[#8d867e] sm:mt-8 sm:text-lg sm:leading-8">
+              Creative direction, design systems, and AI-powered workflows
+              for brands that refuse to be average.
+            </p>
+
+            {/* CTA row */}
+            <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
               <a
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#6affcc] px-4 text-sm font-bold text-[#06120f] transition hover:bg-[#9dffe1] sm:h-12 sm:px-5"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#6affcc] px-6 text-sm font-bold text-[#06120f] transition hover:bg-[#9dffe1] sm:px-8"
                 href="#contact"
               >
-                <Sparkles size={16} />
-                Got a problem? Let&apos;s solve it
+                Let&apos;s talk
+                <ArrowUpRight size={16} />
               </a>
               <a
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-[#f5f0e8]/18 px-4 text-sm font-bold text-[#f5f0e8] transition hover:border-[#ff6a4a] hover:text-[#ff8b70] sm:h-12 sm:px-5"
-                href="https://x.com/Darshd9941"
-                rel="noreferrer"
-                target="_blank"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-[#f5f0e8]/20 px-6 text-sm font-medium text-[#bdb4aa] transition hover:border-[#6affcc] hover:text-[#6affcc] sm:px-8"
+                href="#graphics"
               >
-                <Radio size={16} />
-                Follow the signal
+                View my work
               </a>
             </div>
-          </div>
 
-          <div className="grid gap-3 sm:gap-4">
-            <div className="group rounded-lg border border-[#f5f0e8]/14 bg-[#111]/85 p-3 shadow-[0_24px_90px_rgba(0,0,0,0.5)] sm:p-4">
-              <div className="flex items-center justify-between rounded-md bg-[#f5f0e8] px-3 py-2 text-[#050505] sm:px-4 sm:py-3">
-                <span className="font-mono text-[10px] uppercase tracking-[0.16em] sm:text-xs">
-                  Public operating mode
-                </span>
-                <Eye size={16} />
+            {/* Stats row */}
+            <div className="mt-14 flex gap-8 border-t border-[#f5f0e8]/10 pt-8 sm:mt-20 sm:gap-16">
+              <div>
+                <p className="text-2xl font-bold text-[#f5f0e8] sm:text-3xl">7+</p>
+                <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#5a5148] sm:text-xs">
+                  Years
+                </p>
               </div>
-              <div className="grid grid-cols-2 gap-2 py-3 sm:gap-3 sm:py-4">
-                {[
-                  ["Role", "Designer / creative director"],
-                  ["Practice", "Direction, AI, systems"],
-                  ["Receipts", `${repos.length} GitHub repos`],
-                  ["Contact", "X first, email later"],
-                ].map(([label, value]) => (
-                  <div
-                    className="rounded-md border border-[#f5f0e8]/10 bg-[#f5f0e8]/5 p-2.5 transition group-hover:border-[#6affcc]/35 sm:p-4"
-                    key={label}
-                  >
-                    <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#ff8b70] sm:text-xs">
-                      {label}
-                    </p>
-                    <p className="mt-1.5 text-xs font-semibold leading-tight text-[#f5f0e8] sm:mt-3 sm:text-lg sm:leading-normal">
-                      {value}
-                    </p>
-                  </div>
-                ))}
+              <div>
+                <p className="text-2xl font-bold text-[#f5f0e8] sm:text-3xl">50+</p>
+                <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#5a5148] sm:text-xs">
+                  Campaigns
+                </p>
               </div>
-              <div className="overflow-hidden rounded-md border border-[#f5f0e8]/10">
-                <div className="animate-[marquee_18s_linear_infinite] whitespace-nowrap py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[#6affcc] sm:py-3 sm:text-sm">
-                  Design direction / visual taste / AI adaptation / motion
-                  language / brand systems / workflow design / creative ops /
-                </div>
+              <div>
+                <p className="text-2xl font-bold text-[#f5f0e8] sm:text-3xl">27+</p>
+                <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#5a5148] sm:text-xs">
+                  Open source tools
+                </p>
               </div>
             </div>
           </div>
