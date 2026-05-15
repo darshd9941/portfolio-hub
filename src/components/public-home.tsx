@@ -291,7 +291,7 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
 
           <div className="grid gap-3 sm:gap-4">
             <div className="group rounded-lg border border-[#f5f0e8]/14 bg-[#111]/85 p-3 shadow-[0_24px_90px_rgba(0,0,0,0.5)] sm:p-4">
-              <div className="flex items-center justify-between rounded-md bg-[#f5f0e8] px-3 py-2.5 text-[#050505] sm:px-4 sm:py-3">
+              <div className="flex items-center justify-between rounded-md bg-[#f5f0e8] px-3 py-2 text-[#050505] sm:px-4 sm:py-3">
                 <span className="font-mono text-[10px] uppercase tracking-[0.16em] sm:text-xs">
                   Public operating mode
                 </span>
@@ -300,25 +300,25 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
               <div className="grid grid-cols-2 gap-2 py-3 sm:gap-3 sm:py-4">
                 {[
                   ["Role", "Designer / creative director"],
-                  ["Practice", "Direction, AI workflow, systems"],
+                  ["Practice", "Direction, AI, systems"],
                   ["Receipts", `${repos.length} GitHub repos`],
                   ["Contact", "X first, email later"],
                 ].map(([label, value]) => (
                   <div
-                    className="rounded-md border border-[#f5f0e8]/10 bg-[#f5f0e8]/5 p-3 transition group-hover:border-[#6affcc]/35 sm:p-4"
+                    className="rounded-md border border-[#f5f0e8]/10 bg-[#f5f0e8]/5 p-2.5 transition group-hover:border-[#6affcc]/35 sm:p-4"
                     key={label}
                   >
-                    <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#ff8b70] sm:text-xs">
+                    <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#ff8b70] sm:text-xs">
                       {label}
                     </p>
-                    <p className="mt-2 text-sm font-semibold text-[#f5f0e8] sm:mt-3 sm:text-lg">
+                    <p className="mt-1.5 text-xs font-semibold leading-tight text-[#f5f0e8] sm:mt-3 sm:text-lg sm:leading-normal">
                       {value}
                     </p>
                   </div>
                 ))}
               </div>
               <div className="overflow-hidden rounded-md border border-[#f5f0e8]/10">
-                <div className="animate-[marquee_18s_linear_infinite] whitespace-nowrap py-2 font-mono text-xs uppercase tracking-[0.18em] text-[#6affcc] sm:py-3 sm:text-sm">
+                <div className="animate-[marquee_18s_linear_infinite] whitespace-nowrap py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[#6affcc] sm:py-3 sm:text-sm">
                   Design direction / visual taste / AI adaptation / motion
                   language / brand systems / workflow design / creative ops /
                 </div>
