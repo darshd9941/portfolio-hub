@@ -496,10 +496,78 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
         </section>
 
         {/* Footer */}
-        <footer className="border-t border-[#f5f0e8]/10 px-4 py-6 sm:px-8 sm:py-8">
-          <div className="mx-auto flex max-w-7xl flex-col justify-between gap-3 text-xs text-[#8d867e] sm:flex-row sm:gap-4 sm:text-sm">
-            <span>Darsh.us / public portfolio</span>
-            <span>No email shown until mail is actually configured.</span>
+        <footer className="border-t border-[#f5f0e8]/10 bg-[#0a0a0a]">
+          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-8 sm:py-14">
+            <div className="flex flex-col gap-8 sm:flex-row sm:justify-between sm:gap-10">
+              {/* Left */}
+              <div className="flex flex-col gap-4">
+                <a className="font-mono text-sm uppercase tracking-[0.18em] text-[#f5f0e8]" href="#">
+                  Darsh.us
+                </a>
+                <p className="max-w-xs text-sm leading-6 text-[#8d867e]">
+                  Designer & creative director building sharper ways to make things.
+                </p>
+              </div>
+
+              {/* Middle */}
+              <div className="flex flex-col gap-3">
+                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#6affcc]">
+                  Navigate
+                </p>
+                <div className="flex flex-wrap gap-x-6 gap-y-2">
+                  {["Studio", "Graphics", "Projects", "Signals"].map((item) => (
+                    <a
+                      key={item}
+                      href={`#${item.toLowerCase()}`}
+                      className="text-sm text-[#bdb4aa] transition hover:text-[#6affcc]"
+                    >
+                      {item}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right */}
+              <div className="flex flex-col gap-3">
+                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#6affcc]">
+                  Connect
+                </p>
+                <div className="flex flex-wrap gap-x-6 gap-y-2">
+                  <a
+                    href="https://x.com/Darshd9941"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm text-[#bdb4aa] transition hover:text-[#6affcc]"
+                  >
+                    X / Twitter
+                  </a>
+                  <a
+                    href="https://github.com/darshd9941"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm text-[#bdb4aa] transition hover:text-[#6affcc]"
+                  >
+                    GitHub
+                  </a>
+                  <a
+                    href="mailto:hello@darsh.us"
+                    className="text-sm text-[#bdb4aa] transition hover:text-[#6affcc]"
+                  >
+                    Email
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom bar */}
+            <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-[#f5f0e8]/8 pt-6 sm:mt-12 sm:flex-row sm:pt-8">
+              <span className="text-xs text-[#5a5148]">
+                © {new Date().getFullYear()} Darsh. All rights reserved.
+              </span>
+              <span className="text-xs text-[#5a5148]">
+                Built with taste & caffeine
+              </span>
+            </div>
           </div>
         </footer>
       </div>
