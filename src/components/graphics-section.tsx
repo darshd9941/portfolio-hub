@@ -6,12 +6,12 @@ import { initAudio, playTick, playHover, startAmbient, stopAmbient } from "@/lib
 import { campaigns } from "@/data/campaigns";
 
 const scatterOffsets = [
-  { x: -200, y: -140, r: -12 },
-  { x: -60, y: -170, r: 8 },
-  { x: 100, y: -150, r: -6 },
-  { x: 210, y: -110, r: 15 },
-  { x: -160, y: 30, r: 10 },
-  { x: 50, y: 50, r: -14 },
+  { x: -200, y: -140, r: -12, xS: -100, yS: -80 },
+  { x: -60, y: -170, r: 8, xS: -30, yS: -90 },
+  { x: 100, y: -150, r: -6, xS: 50, yS: -80 },
+  { x: 210, y: -110, r: 15, xS: 100, yS: -60 },
+  { x: -160, y: 30, r: 10, xS: -80, yS: 20 },
+  { x: 50, y: 50, r: -14, xS: 25, yS: 30 },
 ];
 
 export function GraphicsSection() {
@@ -77,19 +77,19 @@ export function GraphicsSection() {
   return (
     <section
       ref={sectionRef}
-      className="border-y border-[#f5f0e8]/10 bg-[#0b0b0b] px-5 py-20 sm:px-8"
+      className="border-y border-[#f5f0e8]/10 bg-[#0b0b0b] px-4 py-14 sm:px-8 sm:py-20"
       id="graphics"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="mb-16 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+        <div className="mb-10 flex flex-col justify-between gap-4 sm:mb-16 sm:flex-row sm:items-end sm:gap-6">
           <div>
-            <p className="font-mono text-sm uppercase tracking-[0.18em] text-[#6affcc]">
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-[#6affcc] sm:text-sm">
               Visual work
             </p>
-            <h2 className="mt-4 text-5xl font-semibold leading-[0.98] text-[#f5f0e8] sm:text-7xl">
+            <h2 className="mt-3 text-4xl font-semibold leading-[0.98] text-[#f5f0e8] sm:mt-4 sm:text-5xl lg:text-7xl">
               Ad campaigns & visual storytelling.
             </h2>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#bdb4aa]">
+            <p className="mt-3 max-w-xl text-sm leading-7 text-[#bdb4aa] sm:mt-5 sm:max-w-2xl sm:text-lg sm:leading-8">
               Hover to preview, click to explore the full story behind each campaign.
             </p>
           </div>
@@ -115,12 +115,12 @@ export function GraphicsSection() {
                 onMouseLeave={() => setHoveredId(null)}
                 onMouseMove={(e) => handleMouseMove(e, campaign.slug)}
               >
-                <div className="flex items-center gap-6 py-7">
-                  <span className="font-mono text-sm text-[#ff8b70]">
+                <div className="flex items-center gap-3 py-4 sm:gap-6 sm:py-7">
+                  <span className="font-mono text-xs text-[#ff8b70] sm:text-sm">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <h3
-                    className={`text-2xl font-semibold transition-colors duration-300 sm:text-3xl ${
+                    className={`text-lg font-semibold transition-colors duration-300 sm:text-2xl lg:text-3xl ${
                       isHovered ? "text-[#6affcc]" : "text-[#f5f0e8]"
                     }`}
                   >
@@ -153,6 +153,11 @@ export function GraphicsSection() {
                   >
                     {campaign.images.map((src, i) => {
                       const offset = scatterOffsets[i % scatterOffsets.length];
+                      const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+                      const x = isMobile ? offset.xS : offset.x;
+                      const y = isMobile ? offset.yS : offset.y;
+                      const w = isMobile ? 100 : 170;
+                      const h = isMobile ? 130 : 220;
                       if (soundEnabled) {
                         setTimeout(() => playTick(), i * 70);
                       }
@@ -161,10 +166,10 @@ export function GraphicsSection() {
                           key={`${campaign.slug}-${i}`}
                           className="absolute left-0 top-0 overflow-hidden rounded-md shadow-[0_8px_40px_rgba(0,0,0,0.5)] ring-1 ring-white/10"
                           style={{
-                            width: 170,
-                            height: 220,
+                            width: w,
+                            height: h,
                             animation: `thumbPopIn 0.4s ${i * 70}ms cubic-bezier(0.16, 1, 0.3, 1) both`,
-                            transform: `translate(${offset.x}px, ${offset.y}px) rotate(${offset.r}deg)`,
+                            transform: `translate(${x}px, ${y}px) rotate(${offset.r}deg)`,
                           }}
                         >
                           <img
