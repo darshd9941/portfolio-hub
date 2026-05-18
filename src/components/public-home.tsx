@@ -187,7 +187,7 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
             Darsh.us
           </a>
           <div className="hidden items-center gap-6 text-sm text-[#aaa29a] md:flex">
-            {["Studio", "Proof", "Signals", "Projects"].map((item) => (
+            {["Studio", "Proof", "Graphics", "Signals", "Projects"].map((item) => (
               <a
                 className="transition hover:text-[#6affcc]"
                 href={`#${item.toLowerCase()}`}
@@ -330,6 +330,65 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
                 <p className="text-2xl font-semibold text-[#f5f0e8]">{line}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="border-y border-[#f5f0e8]/10 bg-[#0b0b0b] px-5 py-20 sm:px-8" id="graphics">
+          <div className="mx-auto max-w-7xl">
+            <p className="font-mono text-sm uppercase tracking-[0.18em] text-[#6affcc]">
+              Graphics
+            </p>
+            <h2 className="mt-4 max-w-3xl text-5xl font-semibold leading-[0.98] sm:text-7xl">
+              Visual work speaks louder than process docs.
+            </h2>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#bdb4aa]">
+              Ad campaigns, brand visuals, and production work for URBAN SPACE
+              and other brands. Hover to reveal.
+            </p>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-3">
+              {[
+                {
+                  title: "Morocco Blanket Campaign",
+                  category: "Product Ad",
+                  image: "/graphics-01.jpg",
+                },
+                {
+                  title: "Orchid Blue Collection",
+                  category: "Sale Campaign",
+                  image: "/graphics-02.jpg",
+                },
+                {
+                  title: "Fresh Bedsheet Series",
+                  category: "Brand Visual",
+                  image: "/graphics-03.jpg",
+                },
+              ].map((item) => (
+                <div
+                  className="group relative h-80 cursor-pointer overflow-hidden rounded-lg border border-[#f5f0e8]/12"
+                  key={item.title}
+                >
+                  {/* Default state — title card */}
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#f5f0e8]/5 p-6 text-center transition-all duration-500 group-hover:opacity-0 group-hover:scale-95">
+                    <span className="font-mono text-xs uppercase tracking-[0.14em] text-[#ff8b70]">
+                      {item.category}
+                    </span>
+                    <p className="mt-4 text-2xl font-semibold text-[#f5f0e8]">
+                      {item.title}
+                    </p>
+                    <p className="mt-3 text-xs text-[#8d867e]">
+                      Hover to reveal
+                    </p>
+                  </div>
+
+                  {/* Hover state — image reveal */}
+                  <div
+                    className="absolute inset-0 z-0 scale-110 bg-cover bg-center opacity-0 blur-sm transition-all duration-500 group-hover:opacity-100 group-hover:scale-100 group-hover:blur-0"
+                    style={{ backgroundImage: `url(${item.image})` }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
