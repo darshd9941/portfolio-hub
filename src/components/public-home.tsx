@@ -244,46 +244,69 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
 
         {/* Hero */}
         <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pb-16 pt-24 sm:px-8 sm:pt-28 lg:pb-20">
-          {/* Background image */}
-          <div className="absolute inset-0 z-0">
-            <img
-              src="/hero.jpg"
-              alt=""
-              className="h-full w-full object-cover"
+          {/* Floating gradient orbs */}
+          <div className="pointer-events-none absolute inset-0 z-0">
+            <div
+              className="absolute -left-32 -top-32 h-[500px] w-[500px] rounded-full opacity-20 blur-[120px] transition-all duration-1000 sm:h-[700px] sm:w-[700px]"
+              style={{
+                background: "radial-gradient(circle, rgba(106,255,204,0.3), transparent 70%)",
+                transform: `translate(${pointer.x * 0.02}px, ${pointer.y * 0.02}px)`,
+              }}
             />
-            <div className="absolute inset-0 bg-[#050505]/70" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/30 to-[#050505]" />
+            <div
+              className="absolute -bottom-48 -right-32 h-[600px] w-[600px] rounded-full opacity-10 blur-[140px] transition-all duration-1000 sm:h-[800px] sm:w-[800px]"
+              style={{
+                background: "radial-gradient(circle, rgba(255,107,74,0.3), transparent 70%)",
+                transform: `translate(${pointer.x * -0.015}px, ${pointer.y * -0.015}px)`,
+              }}
+            />
+            {/* Subtle grid overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(245,240,232,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(245,240,232,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
           </div>
 
           <div className="relative z-10 mx-auto w-full max-w-5xl">
-            {/* Role line */}
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#6affcc] sm:text-sm">
-              Designer & Creative Director — Ahmedabad, India
-            </p>
+            {/* Role line with reveal */}
+            <div className="animate-reveal-from-bottom" style={{ animationDelay: "0.1s" }}>
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#6affcc] sm:text-sm">
+                Designer & Creative Director — Ahmedabad, India
+              </p>
+            </div>
 
-            {/* Headline */}
-            <h1 className="mt-5 text-5xl font-bold leading-[0.88] tracking-tight text-[#f5f0e8] sm:mt-6 sm:text-7xl md:text-8xl lg:text-[9rem]">
-              Taste.
-              <br />
-              Tools.
-              <br />
-              <span className="text-[#6affcc]">Trouble.</span>
+            {/* Headline with staggered reveal */}
+            <h1 className="mt-5 sm:mt-6">
+              <div className="animate-reveal-from-bottom overflow-hidden" style={{ animationDelay: "0.2s" }}>
+                <span className="block text-5xl font-bold leading-[0.88] tracking-tight text-[#f5f0e8] sm:text-7xl md:text-8xl lg:text-[9rem]">
+                  Taste.
+                </span>
+              </div>
+              <div className="animate-reveal-from-bottom overflow-hidden" style={{ animationDelay: "0.35s" }}>
+                <span className="block text-5xl font-bold leading-[0.88] tracking-tight text-[#f5f0e8] sm:text-7xl md:text-8xl lg:text-[9rem]">
+                  Tools.
+                </span>
+              </div>
+              <div className="animate-reveal-from-bottom overflow-hidden" style={{ animationDelay: "0.5s" }}>
+                <span className="block text-5xl font-bold leading-[0.88] tracking-tight text-[#f5f0e8] sm:text-7xl md:text-8xl lg:text-[9rem]">
+                  <span className="text-[#6affcc]">Trouble.</span>
+                </span>
+              </div>
             </h1>
 
             {/* Description */}
-            <p className="mt-6 max-w-xl text-base leading-7 text-[#bdb4aa] sm:mt-8 sm:text-lg sm:leading-8">
-              Creative direction, campaigns, and AI-powered workflows
-              for brands that refuse to be average.
-            </p>
+            <div className="animate-reveal-from-bottom" style={{ animationDelay: "0.65s" }}>
+              <p className="mt-6 max-w-xl text-base leading-7 text-[#bdb4aa] sm:mt-8 sm:text-lg sm:leading-8">
+                Creative direction, campaigns, and AI-powered workflows
+                for brands that refuse to be average.
+              </p>
+            </div>
 
             {/* CTA row */}
-            <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
+            <div className="animate-reveal-from-bottom mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4" style={{ animationDelay: "0.8s" }}>
               <a
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#6affcc] px-6 text-sm font-bold text-[#06120f] transition hover:bg-[#9dffe1] sm:px-8"
+                className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#6affcc] px-6 text-sm font-bold text-[#06120f] transition-all hover:gap-3 hover:bg-[#9dffe1] hover:px-8 sm:px-8"
                 href="#graphics"
               >
                 See the work
-                <ArrowUpRight size={16} />
+                <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
               <a
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-[#f5f0e8]/20 px-6 text-sm font-medium text-[#bdb4aa] transition hover:border-[#6affcc] hover:text-[#6affcc] sm:px-8"
@@ -294,20 +317,20 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
             </div>
 
             {/* Stats row */}
-            <div className="mt-14 flex gap-8 border-t border-[#f5f0e8]/10 pt-8 sm:mt-20 sm:gap-16">
-              <div>
+            <div className="animate-reveal-from-bottom mt-14 flex gap-8 border-t border-[#f5f0e8]/10 pt-8 sm:mt-20 sm:gap-16" style={{ animationDelay: "0.95s" }}>
+              <div className="transition-transform hover:scale-105">
                 <p className="text-2xl font-bold text-[#f5f0e8] sm:text-3xl">7+</p>
                 <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#5a5148] sm:text-xs">
                   Years
                 </p>
               </div>
-              <div>
+              <div className="transition-transform hover:scale-105">
                 <p className="text-2xl font-bold text-[#f5f0e8] sm:text-3xl">50+</p>
                 <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#5a5148] sm:text-xs">
                   Campaigns
                 </p>
               </div>
-              <div>
+              <div className="transition-transform hover:scale-105">
                 <p className="text-2xl font-bold text-[#f5f0e8] sm:text-3xl">27+</p>
                 <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#5a5148] sm:text-xs">
                   Open source tools
