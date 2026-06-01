@@ -243,8 +243,19 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
         </nav>
 
         {/* Hero */}
-        <section className="flex min-h-screen flex-col justify-center px-4 pb-16 pt-24 sm:px-8 sm:pt-28 lg:pb-20">
-          <div className="mx-auto w-full max-w-5xl">
+        <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pb-16 pt-24 sm:px-8 sm:pt-28 lg:pb-20">
+          {/* Background image */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src="/hero.jpg"
+              alt=""
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-[#050505]/70" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/30 to-[#050505]" />
+          </div>
+
+          <div className="relative z-10 mx-auto w-full max-w-5xl">
             {/* Role line */}
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#6affcc] sm:text-sm">
               Designer & Creative Director — Ahmedabad, India
@@ -252,16 +263,16 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
 
             {/* Headline */}
             <h1 className="mt-5 text-5xl font-bold leading-[0.88] tracking-tight text-[#f5f0e8] sm:mt-6 sm:text-7xl md:text-8xl lg:text-[9rem]">
-              I design things
+              Taste.
               <br />
-              that actually
+              Tools.
               <br />
-              <span className="text-[#6affcc]">work.</span>
+              <span className="text-[#6affcc]">Trouble.</span>
             </h1>
 
             {/* Description */}
-            <p className="mt-6 max-w-xl text-base leading-7 text-[#8d867e] sm:mt-8 sm:text-lg sm:leading-8">
-              Creative direction, design systems, and AI-powered workflows
+            <p className="mt-6 max-w-xl text-base leading-7 text-[#bdb4aa] sm:mt-8 sm:text-lg sm:leading-8">
+              Creative direction, campaigns, and AI-powered workflows
               for brands that refuse to be average.
             </p>
 
@@ -269,16 +280,16 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
             <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
               <a
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#6affcc] px-6 text-sm font-bold text-[#06120f] transition hover:bg-[#9dffe1] sm:px-8"
-                href="#contact"
+                href="#graphics"
               >
-                Let&apos;s talk
+                See the work
                 <ArrowUpRight size={16} />
               </a>
               <a
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-[#f5f0e8]/20 px-6 text-sm font-medium text-[#bdb4aa] transition hover:border-[#6affcc] hover:text-[#6affcc] sm:px-8"
-                href="#graphics"
+                href="#contact"
               >
-                View my work
+                Follow the signal
               </a>
             </div>
 
@@ -324,6 +335,9 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
             })}
           </div>
         </section>
+
+        {/* Graphics */}
+        <GraphicsSection />
 
         {/* Manifesto */}
         <section className="mx-auto grid max-w-7xl gap-6 px-4 py-14 sm:gap-8 sm:px-8 sm:py-20 lg:grid-cols-[0.9fr_1.1fr]" id="proof">
@@ -395,9 +409,6 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
           </div>
         </section>
 
-        {/* Graphics */}
-        <GraphicsSection />
-
         {/* Projects */}
         <section className="border-y border-[#f5f0e8]/10 bg-[#f5f0e8] px-4 py-14 text-[#050505] sm:px-8 sm:py-20" id="projects">
           <div className="mx-auto max-w-7xl">
@@ -431,7 +442,7 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
               </div>
             </div>
 
-            <div className="mt-8 grid gap-3 sm:mt-10 md:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-8 grid gap-3 sm:mt-10 md:grid-cols-2">
               {filteredRepos.map((repo, index) => {
                 const projectMode = getProjectMode(repo);
                 return (
