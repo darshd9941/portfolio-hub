@@ -72,3 +72,51 @@ a {
 .animate-reveal-from-bottom {
   animation: revealFromBottom 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* Grain texture overlay */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Chapter scroll transition */
+.chapter-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chapter-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Full-bleed image zoom on scroll */
+.chapter-image {
+  transform: scale(1.15);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chapter-section.visible .chapter-image {
+  transform: scale(1);
+}
+
+/* Chapter number */
+.chapter-number {
+  font-family: var(--font-geist-mono), monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Switch to serif for cinematic headings */
+.cinematic-title {
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+}
