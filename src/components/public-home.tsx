@@ -30,20 +30,67 @@ const socialLinks = [
 ];
 
 const labNotes = [
-  "Adobe automation",
-  "ComfyUI survival kits",
-  "AI image QA",
-  "Brand rule engines",
-  "Motion workflow tools",
-  "Obsidian knowledge systems",
+  {
+    key: "adobe",
+    label: "Adobe automation",
+    copy: "Photoshop, AE, Premiere, Figma bridges",
+    metric: "scripts",
+  },
+  {
+    key: "comfyui",
+    label: "ComfyUI survival kits",
+    copy: "dependency repair, VRAM control, batch QA",
+    metric: "nodes",
+  },
+  {
+    key: "ai",
+    label: "AI image QA",
+    copy: "prompt archaeology, consistency checks, asset memory",
+    metric: "vision",
+  },
+  {
+    key: "brand",
+    label: "Brand rule engines",
+    copy: "tokens, preflight, portals, compliance",
+    metric: "systems",
+  },
+  {
+    key: "motion",
+    label: "Motion workflow tools",
+    copy: "captions, rough cuts, B-roll, expressions",
+    metric: "timelines",
+  },
+  {
+    key: "knowledge",
+    label: "Obsidian knowledge systems",
+    copy: "MCP, second brain patterns, searchable memory",
+    metric: "graphs",
+  },
 ];
 
 const repoThemes = [
-  "Creative production",
-  "AI workflows",
-  "Motion systems",
-  "Brand tooling",
+  { key: "all", label: "All builds" },
+  { key: "adobe", label: "Adobe tools" },
+  { key: "comfyui", label: "ComfyUI" },
+  { key: "ai", label: "AI workflows" },
+  { key: "brand", label: "Brand systems" },
+  { key: "motion", label: "Motion" },
+  { key: "knowledge", label: "Knowledge" },
 ];
+
+function repoSignal(repo: PublicRepo) {
+  const text = `${repo.name} ${repo.description ?? ""}`.toLowerCase();
+  if (text.includes("comfyui") || text.includes("vram") || text.includes("workflow json")) return "comfyui";
+  if (text.includes("after effects") || text.includes("premiere") || text.includes("photoshop") || text.includes("figma") || text.includes("adobe") || text.includes("psd")) return "adobe";
+  if (text.includes("motion") || text.includes("caption") || text.includes("rough cut") || text.includes("b-roll") || text.includes("expression")) return "motion";
+  if (text.includes("brand") || text.includes("prepress") || text.includes("token") || text.includes("color") || text.includes("portal")) return "brand";
+  if (text.includes("obsidian") || text.includes("second brain") || text.includes("mcp") || text.includes("knowledge")) return "knowledge";
+  return "ai";
+}
+
+function titleCaseRepo(name: string) {
+  return name.split("-").map((p) => p.charAt(0).toUpperCase() + p.slice(1)).join(" ");
+}
 
 function useScrollReveal() {
   const ref = useRef<HTMLDivElement>(null);
@@ -146,8 +193,15 @@ function ChapterSection({ campaign, index }: { campaign: Campaign; index: number
   );
 }
 
-function IntroSection() {
+function IntroSection({
+  activeSignal,
+  setActiveSignal,
+}: {
+  activeSignal: string;
+  setActiveSignal: (signal: string) => void;
+}) {
   const { ref, visible } = useScrollReveal();
+  const activeNote = labNotes.find((note) => note.key === activeSignal) ?? labNotes[0];
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden px-6 pb-10 pt-24 sm:px-12 sm:pt-28">
@@ -189,26 +243,74 @@ function IntroSection() {
         </div>
         </div>
 
-        <div className="border border-[#f5f0e8]/12 bg-[#0a0a0a]/80 p-4 shadow-2xl shadow-black/30 sm:p-5">
+        <div className="scan-panel relative overflow-hidden border border-[#f5f0e8]/12 bg-[#0a0a0a]/86 p-4 shadow-2xl shadow-black/30 sm:p-5">
           <div className="flex items-center justify-between border-b border-[#f5f0e8]/10 pb-4">
             <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#ff8b70]">
-              Current obsessions
+              Signal board
             </span>
             <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#6affcc]">Live</span>
           </div>
-          <div className="divide-y divide-[#f5f0e8]/8">
+
+          <div className="relative my-5 min-h-44 overflow-hidden border border-[#f5f0e8]/10 bg-[#050505] p-4">
+            <div className="absolute inset-0 opacity-30 lab-grid" />
+            <img
+              src={campaigns[0]?.images[0] ?? ""}
+              alt=""
+              className="absolute -right-8 top-4 h-28 w-28 rotate-6 object-cover opacity-35 mix-blend-screen"
+            />
+            <img
+              src={campaigns[2]?.images[0] ?? ""}
+              alt=""
+              className="absolute -bottom-8 right-16 h-24 w-24 -rotate-6 object-cover opacity-25 mix-blend-screen"
+            />
+            <div className="signal-line absolute left-[18%] top-[30%] h-px w-[64%] bg-[#6affcc]/30" />
+            <div className="signal-line absolute left-[28%] top-[64%] h-px w-[52%] bg-[#ff8b70]/28" />
+            {labNotes.slice(0, 5).map((note, index) => (
+              <button
+                key={note.key}
+                onClick={() => setActiveSignal(note.key)}
+                className={`signal-node absolute h-4 w-4 border transition ${
+                  activeSignal === note.key
+                    ? "border-[#6affcc] bg-[#6affcc] shadow-[0_0_28px_rgba(106,255,204,0.7)]"
+                    : "border-[#f5f0e8]/25 bg-[#f5f0e8]/10 hover:border-[#ff8b70]"
+                }`}
+                style={{
+                  left: `${12 + index * 18}%`,
+                  top: `${index % 2 === 0 ? 24 + index * 7 : 58 - index * 4}%`,
+                }}
+                aria-label={`Filter projects by ${note.label}`}
+              />
+            ))}
+            <div className="relative z-10 mt-24 max-w-xs border border-[#6affcc]/20 bg-[#050505]/80 p-3">
+              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#6affcc]">
+                {activeNote.metric}
+              </p>
+              <p className="mt-1 text-base font-semibold text-[#f5f0e8]">{activeNote.label}</p>
+              <p className="mt-1 text-xs leading-5 text-[#8d867e]">{activeNote.copy}</p>
+            </div>
+          </div>
+
+          <div className="grid gap-2 sm:grid-cols-2">
             {labNotes.map((note, index) => (
-              <div className="flex items-center justify-between py-4" key={note}>
-                <span className="text-sm font-semibold text-[#f5f0e8] sm:text-base">{note}</span>
+              <button
+                className={`flex items-center justify-between border px-3 py-3 text-left transition ${
+                  activeSignal === note.key
+                    ? "border-[#6affcc]/55 bg-[#6affcc]/12 text-[#f5f0e8]"
+                    : "border-[#f5f0e8]/10 bg-[#f5f0e8]/4 text-[#bdb4aa] hover:border-[#ff8b70]/50 hover:text-[#f5f0e8]"
+                }`}
+                key={note.key}
+                onClick={() => setActiveSignal(note.key)}
+              >
+                <span className="text-xs font-semibold sm:text-sm">{note.label}</span>
                 <span className="font-mono text-[10px] text-[#6affcc]/80">{String(index + 1).padStart(2, "0")}</span>
-              </div>
+              </button>
             ))}
           </div>
           <a
-            href="#chapters"
+            href="#projects"
             className="mt-5 inline-flex w-full items-center justify-between border border-[#f5f0e8]/12 px-4 py-3 text-sm text-[#bdb4aa] transition hover:border-[#6affcc]/45 hover:text-[#6affcc]"
           >
-            Graphic campaigns below
+            Jump to filtered projects
             <ChevronDown size={15} />
           </a>
         </div>
@@ -318,8 +420,12 @@ function SignalsSection() {
 
 export function PublicHome({ repos }: { repos: PublicRepo[] }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSignal, setActiveSignal] = useState("ai");
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const visibleRepos = repos.filter((repo) => activeSignal === "all" || repoSignal(repo) === activeSignal);
+  const projectRepos = (visibleRepos.length > 0 ? visibleRepos : repos).slice(0, 8);
+  const activeThemeLabel = repoThemes.find((theme) => theme.key === activeSignal)?.label ?? "AI workflows";
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#050505] text-[#f5f0e8]">
@@ -394,7 +500,7 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
 
       <div className="relative z-10">
         {/* Cinematic Intro */}
-        <IntroSection />
+        <IntroSection activeSignal={activeSignal} setActiveSignal={setActiveSignal} />
 
         {/* Campaign Chapters */}
         <div id="chapters">
@@ -447,37 +553,48 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
               Projects
             </span>
             <h2 className="mt-4 max-w-2xl text-2xl font-semibold leading-tight text-[#f5f0e8] sm:text-3xl">
-              Public builds from the workshop floor.
+              Public builds from the workshop floor, currently tuned to {activeThemeLabel.toLowerCase()}.
             </h2>
-            <div className="mt-5 flex flex-wrap gap-2">
+            <div className="mt-5 flex flex-wrap gap-2" aria-label="Project filters">
               {repoThemes.map((theme) => (
-                <span
-                  key={theme}
-                  className="border border-[#f5f0e8]/12 bg-[#050505] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-[#bdb4aa]"
+                <button
+                  key={theme.key}
+                  onClick={() => setActiveSignal(theme.key)}
+                  className={`border px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] transition ${
+                    activeSignal === theme.key
+                      ? "border-[#6affcc]/60 bg-[#6affcc]/12 text-[#6affcc]"
+                      : "border-[#f5f0e8]/12 bg-[#050505] text-[#bdb4aa] hover:border-[#ff8b70]/50 hover:text-[#ffb199]"
+                  }`}
                 >
-                  {theme}
-                </span>
+                  {theme.label}
+                </button>
               ))}
             </div>
             <div className="mt-8 grid gap-2 sm:grid-cols-2">
-              {repos.slice(0, 8).map((repo) => (
+              {projectRepos.map((repo, index) => (
                 <a
-                  className="group flex items-center justify-between rounded-lg border border-[#f5f0e8]/10 bg-[#f5f0e8]/5 p-4 text-sm transition hover:border-[#6affcc]/40 hover:bg-[#f5f0e8]/8 sm:p-5"
+                  className="group relative overflow-hidden border border-[#f5f0e8]/10 bg-[#f5f0e8]/5 p-4 text-sm transition hover:-translate-y-1 hover:border-[#6affcc]/40 hover:bg-[#f5f0e8]/8 sm:p-5"
                   href={repo.html_url}
                   key={repo.name}
                   rel="noreferrer"
                   target="_blank"
                 >
-                  <div className="min-w-0 flex-1">
-                    <span className="block truncate font-semibold text-[#f5f0e8] transition group-hover:text-[#6affcc]">
-                      {repo.name.split("-").map((p) => p.charAt(0).toUpperCase() + p.slice(1)).join(" ")}
-                    </span>
-                    <span className="mt-1 block truncate text-xs text-[#8d867e]">{repo.description}</span>
+                  <div className="absolute right-4 top-4 font-mono text-[10px] text-[#6affcc]/50">
+                    {String(index + 1).padStart(2, "0")}
                   </div>
-                  <span className="ml-3 flex shrink-0 items-center gap-1 font-mono text-[10px] uppercase tracking-[0.1em] text-[#6affcc]">
-                    {repo.language ?? "Code"}
-                    <ArrowUpRight size={12} />
-                  </span>
+                  <div className="pr-10">
+                    <span className="inline-flex border border-[#6affcc]/20 bg-[#050505] px-2 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-[#6affcc]">
+                      {repoSignal(repo)}
+                    </span>
+                    <span className="mt-4 block font-semibold text-[#f5f0e8] transition group-hover:text-[#6affcc]">
+                      {titleCaseRepo(repo.name)}
+                    </span>
+                    <span className="mt-2 block text-xs leading-5 text-[#8d867e]">{repo.description}</span>
+                    <span className="mt-5 inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-[0.1em] text-[#6affcc]">
+                      {repo.language ?? "Code"}
+                      <ArrowUpRight size={12} />
+                    </span>
+                  </div>
                 </a>
               ))}
             </div>

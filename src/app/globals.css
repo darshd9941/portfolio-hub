@@ -69,6 +69,33 @@ a {
   }
 }
 
+@keyframes scanSweep {
+  0% {
+    transform: translateY(-120%);
+  }
+  100% {
+    transform: translateY(220%);
+  }
+}
+
+@keyframes nodePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.45);
+  }
+}
+
+@keyframes lineFlicker {
+  0%, 100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
 .animate-reveal-from-bottom {
   animation: revealFromBottom 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -92,6 +119,28 @@ a {
     linear-gradient(rgba(255, 139, 112, 0.08) 1px, transparent 1px);
   background-size: 72px 72px, 72px 72px, 12px 12px;
   mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+}
+
+.scan-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(106, 255, 204, 0.08),
+    transparent
+  );
+  animation: scanSweep 5s linear infinite;
+}
+
+.signal-node {
+  animation: nodePulse 2.8s ease-in-out infinite;
+}
+
+.signal-line {
+  animation: lineFlicker 3s ease-in-out infinite;
 }
 
 /* Chapter scroll transition */
