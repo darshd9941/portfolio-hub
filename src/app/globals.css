@@ -96,8 +96,68 @@ a {
   }
 }
 
+@keyframes floatCard {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(var(--tilt, 0deg));
+  }
+}
+
 .animate-reveal-from-bottom {
   animation: revealFromBottom 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-stage {
+  --mx: 50%;
+  --my: 50%;
+}
+
+.hero-noise-map {
+  background:
+    radial-gradient(circle at 12% 20%, rgba(255, 139, 112, 0.15), transparent 28%),
+    radial-gradient(circle at 82% 34%, rgba(106, 255, 204, 0.13), transparent 30%),
+    linear-gradient(135deg, rgba(245, 240, 232, 0.05), transparent 35%, rgba(106, 255, 204, 0.05));
+  opacity: 0.75;
+}
+
+.pointer-glow {
+  left: var(--mx);
+  top: var(--my);
+  height: 360px;
+  width: 360px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(106, 255, 204, 0.18), transparent 62%);
+  filter: blur(8px);
+}
+
+.marquee-track {
+  animation: marquee 26s linear infinite;
+}
+
+.hero-card {
+  backdrop-filter: blur(14px);
+}
+
+.hero-card-a {
+  --tilt: -4deg;
+  animation: floatCard 7s ease-in-out infinite;
+}
+
+.hero-card-b {
+  --tilt: 5deg;
+  animation: floatCard 8s ease-in-out infinite reverse;
+}
+
+.hero-card-c {
+  --tilt: -1deg;
+  animation: floatCard 9s ease-in-out infinite;
+}
+
+.magnetic-link:hover {
+  transform: translateY(-2px) skewX(-4deg);
 }
 
 /* Grain texture overlay */

@@ -202,67 +202,133 @@ function IntroSection({
 }) {
   const { ref, visible } = useScrollReveal();
   const activeNote = labNotes.find((note) => note.key === activeSignal) ?? labNotes[0];
+  const featuredRepo = {
+    adobe: "figma-ae-bridge",
+    comfyui: "comfyui-memory-manager",
+    ai: "prompt-archaeologist",
+    brand: "brand-consistency-checker",
+    motion: "nl-motion-builder",
+    knowledge: "obsidian-mcp-server",
+    all: "portfolio-hub",
+  }[activeSignal] ?? "prompt-archaeologist";
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty("--mx", `${event.clientX - rect.left}px`);
+    event.currentTarget.style.setProperty("--my", `${event.clientY - rect.top}px`);
+  };
 
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden px-6 pb-10 pt-24 sm:px-12 sm:pt-28">
+    <section
+      className="hero-stage relative flex min-h-screen items-center overflow-hidden px-5 pb-8 pt-20 sm:px-12 sm:pt-24"
+      onPointerMove={handlePointerMove}
+    >
       <div className="absolute inset-0 z-0 bg-[#050505]" />
       <div className="lab-grid absolute inset-0 z-0 opacity-[0.18]" />
+      <div className="hero-noise-map absolute inset-0 z-0" />
+      <div className="pointer-glow absolute z-0" />
+
+      <div className="absolute left-0 right-0 top-16 z-10 overflow-hidden border-y border-[#f5f0e8]/8 bg-[#050505]/60 py-2">
+        <div className="marquee-track flex w-max gap-8 font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff8b70]">
+          {Array.from({ length: 2 }).map((_, loop) => (
+            <div className="flex gap-8" key={loop}>
+              <span>Creative systems</span>
+              <span>AI workflow design</span>
+              <span>Adobe automation</span>
+              <span>ComfyUI utilities</span>
+              <span>Motion tools</span>
+              <span>Brand machinery</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div
         ref={ref}
-        className={`relative z-10 mx-auto grid w-full max-w-7xl gap-10 transition-all duration-1000 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.9fr)] lg:items-end ${
+        className={`relative z-10 mx-auto grid w-full max-w-7xl gap-8 transition-all duration-1000 lg:grid-cols-[minmax(0,0.95fr)_minmax(420px,1.05fr)] lg:items-center ${
           visible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
         }`}
       >
-        <div>
-        <div className="mb-6 inline-flex items-center gap-2 border border-[#6affcc]/35 bg-[#6affcc]/8 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[#6affcc] sm:text-xs">
-          <Sparkles size={13} />
-          Creative systems lab / Ahmedabad
-        </div>
-        <h1 className="cinematic-title max-w-5xl text-5xl font-light leading-[0.92] text-[#f5f0e8] sm:text-6xl md:text-[4.9rem] lg:text-[5.6rem]">
-          Darsh builds tools for the creative endgame.
-        </h1>
-        <p className="mt-5 max-w-2xl text-base leading-7 text-[#bdb4aa] sm:text-lg sm:leading-8">
-          Creative director turning brand work, AI workflows, Adobe pipelines, and production chaos into sharp little systems that actually ship.
-        </p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <a
-            href="#projects"
-            className="inline-flex h-11 items-center gap-2 border border-[#6affcc]/55 bg-[#6affcc]/12 px-5 text-sm font-semibold text-[#6affcc] transition hover:bg-[#6affcc]/20"
-          >
-            See the machines
-            <ArrowUpRight size={15} />
-          </a>
-          <a
-            href="mailto:hello@darsh.us"
-            className="inline-flex h-11 items-center gap-2 border border-[#f5f0e8]/15 px-5 text-sm text-[#f5f0e8] transition hover:border-[#ff8b70] hover:text-[#ffb199]"
-          >
-            Start a project
-            <Mail size={15} />
-          </a>
-        </div>
-        </div>
-
-        <div className="scan-panel relative overflow-hidden border border-[#f5f0e8]/12 bg-[#0a0a0a]/86 p-4 shadow-2xl shadow-black/30 sm:p-5">
-          <div className="flex items-center justify-between border-b border-[#f5f0e8]/10 pb-4">
-            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#ff8b70]">
-              Signal board
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#6affcc]">Live</span>
+        <div className="max-w-2xl">
+          <div className="mb-5 inline-flex items-center gap-2 border border-[#6affcc]/35 bg-[#6affcc]/8 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[#6affcc] sm:text-xs">
+            <Sparkles size={13} />
+            Interactive creative lab / Ahmedabad
           </div>
+          <h1 className="cinematic-title max-w-4xl text-5xl font-light leading-[0.9] text-[#f5f0e8] sm:text-7xl lg:text-[4.9rem]">
+            Not a portfolio. A creative machine room.
+          </h1>
+          <p className="mt-4 max-w-xl text-base leading-7 text-[#bdb4aa] sm:text-lg sm:leading-8">
+            Pick a signal. The projects mutate. The visuals answer back. Somewhere between brand direction, AI workflows, and Adobe tools, the boring part gets handled.
+          </p>
+          <div className="mt-5 grid gap-2 sm:grid-cols-2">
+            {labNotes.slice(0, 4).map((note) => (
+              <button
+                key={note.key}
+                onClick={() => setActiveSignal(note.key)}
+                className={`group flex items-center justify-between border px-3 py-3 text-left transition ${
+                  activeSignal === note.key
+                    ? "border-[#6affcc]/60 bg-[#6affcc]/12 text-[#f5f0e8]"
+                    : "border-[#f5f0e8]/12 bg-[#050505]/70 text-[#bdb4aa] hover:border-[#ff8b70]/50 hover:text-[#f5f0e8]"
+                }`}
+              >
+                <span className="text-xs font-semibold sm:text-sm">{note.label}</span>
+                <span className="text-[#6affcc] transition group-hover:translate-x-1">→</span>
+              </button>
+            ))}
+          </div>
+          <div className="mt-3 flex flex-wrap gap-3">
+            <a
+              href="#projects"
+              className="magnetic-link inline-flex h-10 items-center gap-2 border border-[#6affcc]/55 bg-[#6affcc]/12 px-5 text-sm font-semibold text-[#6affcc] transition hover:bg-[#6affcc]/20"
+            >
+              Enter the machine
+              <ArrowUpRight size={15} />
+            </a>
+            <a
+              href="mailto:hello@darsh.us"
+              className="magnetic-link inline-flex h-10 items-center gap-2 border border-[#f5f0e8]/15 px-5 text-sm text-[#f5f0e8] transition hover:border-[#ff8b70] hover:text-[#ffb199]"
+            >
+              Send a brief
+              <Mail size={15} />
+            </a>
+          </div>
+        </div>
 
-          <div className="relative my-5 min-h-44 overflow-hidden border border-[#f5f0e8]/10 bg-[#050505] p-4">
-            <div className="absolute inset-0 opacity-30 lab-grid" />
+        <div className="relative min-h-[540px] lg:min-h-[560px]">
+          <div className="hero-card hero-card-a absolute left-0 top-0 w-[70%] overflow-hidden border border-[#f5f0e8]/12 bg-[#0a0a0a] shadow-2xl shadow-black/40">
             <img
               src={campaigns[0]?.images[0] ?? ""}
-              alt=""
-              className="absolute -right-8 top-4 h-28 w-28 rotate-6 object-cover opacity-35 mix-blend-screen"
+              alt="Featured campaign visual"
+              className="h-60 w-full object-cover"
             />
+            <div className="flex items-center justify-between border-t border-[#f5f0e8]/10 p-4">
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#6affcc]">Campaign system</span>
+              <span className="text-xs text-[#8d867e]">Visual proof</span>
+            </div>
+          </div>
+
+          <div className="hero-card hero-card-b absolute right-0 top-16 w-[58%] overflow-hidden border border-[#ff8b70]/25 bg-[#0a0a0a] shadow-2xl shadow-black/40">
             <img
-              src={campaigns[2]?.images[0] ?? ""}
-              alt=""
-              className="absolute -bottom-8 right-16 h-24 w-24 -rotate-6 object-cover opacity-25 mix-blend-screen"
+              src={campaigns[3]?.images[0] ?? ""}
+              alt="Campaign visual collage"
+              className="h-52 w-full object-cover"
             />
+            <div className="grid grid-cols-3 border-t border-[#f5f0e8]/10 text-center font-mono text-[10px] uppercase tracking-[0.12em] text-[#bdb4aa]">
+              <span className="border-r border-[#f5f0e8]/10 py-3">Brand</span>
+              <span className="border-r border-[#f5f0e8]/10 py-3">AI</span>
+              <span className="py-3">Code</span>
+            </div>
+          </div>
+
+          <div className="scan-panel hero-card hero-card-c absolute bottom-0 left-[7%] right-0 overflow-hidden border border-[#f5f0e8]/12 bg-[#0a0a0a]/90 p-4 shadow-2xl shadow-black/50 sm:p-5">
+            <div className="flex items-center justify-between border-b border-[#f5f0e8]/10 pb-4">
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#ff8b70]">
+                Signal board
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#6affcc]">Live</span>
+            </div>
+            <div className="relative my-5 min-h-44 overflow-hidden border border-[#f5f0e8]/10 bg-[#050505] p-4">
+            <div className="absolute inset-0 opacity-30 lab-grid" />
             <div className="signal-line absolute left-[18%] top-[30%] h-px w-[64%] bg-[#6affcc]/30" />
             <div className="signal-line absolute left-[28%] top-[64%] h-px w-[52%] bg-[#ff8b70]/28" />
             {labNotes.slice(0, 5).map((note, index) => (
@@ -306,6 +372,10 @@ function IntroSection({
               </button>
             ))}
           </div>
+          <div className="mt-4 border border-[#f5f0e8]/10 bg-[#050505] p-3">
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#ff8b70]">Selected repo</p>
+            <p className="mt-1 text-lg font-semibold text-[#f5f0e8]">{featuredRepo}</p>
+          </div>
           <a
             href="#projects"
             className="mt-5 inline-flex w-full items-center justify-between border border-[#f5f0e8]/12 px-4 py-3 text-sm text-[#bdb4aa] transition hover:border-[#6affcc]/45 hover:text-[#6affcc]"
@@ -313,6 +383,7 @@ function IntroSection({
             Jump to filtered projects
             <ChevronDown size={15} />
           </a>
+          </div>
         </div>
       </div>
     </section>
