@@ -2,9 +2,17 @@ let audioCtx: AudioContext | null = null;
 let ambientGain: GainNode | null = null;
 let isAmbientPlaying = false;
 
+type WindowWithWebkitAudio = Window & {
+  webkitAudioContext?: typeof AudioContext;
+};
+
 function getCtx(): AudioContext {
   if (!audioCtx) {
-    audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const AudioCtor = window.AudioContext || (window as WindowWithWebkitAudio).webkitAudioContext;
+    if (!AudioCtor) {
+      throw new Error("AudioContext is not supported in this browser.");
+    }
+    audioCtx = new AudioCtor();
   }
   if (audioCtx.state === "suspended") {
     audioCtx.resume();

@@ -16,16 +16,18 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://darsh.us"),
   title: {
-    default: "Darsh — Designer, Creative Director & AI Workflow Builder",
+    default: "Darsh — Creative Systems Lab",
     template: "%s | Darsh.us",
   },
   description:
-    "Darsh is a designer and creative director building sharper ways to make things. Specializing in creative systems, AI workflow design, and brand direction for ambitious projects.",
+    "Darsh is a creative director building campaign systems, AI workflows, Adobe automation, and practical tools for modern creative production.",
   keywords: [
     "Darsh",
     "creative director",
     "designer",
     "AI workflow",
+    "Adobe automation",
+    "ComfyUI",
     "brand design",
     "creative systems",
     "portfolio",
@@ -41,24 +43,25 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://darsh.us",
     siteName: "Darsh.us",
-    title: "Darsh — Designer, Creative Director & AI Workflow Builder",
+    title: "Darsh — Creative Systems Lab",
     description:
-      "Design, creative direction, AI workflow design, and practical systems for solving creative production problems.",
+      "Campaign systems, AI workflows, Adobe automation, and practical creative tools built by Darsh.",
     images: [
       {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Darsh — Designer & Creative Director",
+        url: "/hero.jpg",
+        width: 1600,
+        height: 900,
+        alt: "Darsh — Creative Systems Lab",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Darsh — Designer, Creative Director & AI Workflow Builder",
+    title: "Darsh — Creative Systems Lab",
     description:
-      "Design, creative direction, AI workflow design, and practical systems for solving creative production problems.",
+      "Campaign systems, AI workflows, Adobe automation, and practical creative tools built by Darsh.",
     creator: "@Darshd9941",
+    images: ["/hero.jpg"],
   },
   robots: {
     index: true,

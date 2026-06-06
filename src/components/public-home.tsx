@@ -5,8 +5,10 @@ import {
   ExternalLink,
   Radio,
   ChevronDown,
+  Mail,
+  Sparkles,
 } from "lucide-react";
-import { useMemo, useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { ChatBot } from "./chatbot";
 import { campaigns, type Campaign } from "@/data/campaigns";
 
@@ -21,12 +23,26 @@ export type PublicRepo = {
   topics: string[];
 };
 
-const navItems = ["Studio", "Graphics", "Projects", "Signals"];
+const navItems = ["Lab", "Graphics", "Projects", "Contact"];
 const socialLinks = [
   { label: "X", href: "https://x.com/Darshd9941", status: "live" },
-  { label: "Instagram", href: "#contact", status: "soon" },
-  { label: "YouTube", href: "#contact", status: "soon" },
-  { label: "Substack", href: "#contact", status: "soon" },
+  { label: "GitHub", href: "https://github.com/darshd9941", status: "open source" },
+];
+
+const labNotes = [
+  "Adobe automation",
+  "ComfyUI survival kits",
+  "AI image QA",
+  "Brand rule engines",
+  "Motion workflow tools",
+  "Obsidian knowledge systems",
+];
+
+const repoThemes = [
+  "Creative production",
+  "AI workflows",
+  "Motion systems",
+  "Brand tooling",
 ];
 
 function useScrollReveal() {
@@ -134,35 +150,66 @@ function IntroSection() {
   const { ref, visible } = useScrollReveal();
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
+    <section className="relative flex min-h-screen items-center overflow-hidden px-6 pb-10 pt-24 sm:px-12 sm:pt-28">
       <div className="absolute inset-0 z-0 bg-[#050505]" />
-      {/* Subtle radial glow */}
-      <div className="absolute left-1/2 top-1/2 z-0 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.08] blur-[100px] sm:h-[800px] sm:w-[800px]"
-        style={{ background: "radial-gradient(circle, rgba(106,255,204,0.4), transparent 70%)" }}
-      />
+      <div className="lab-grid absolute inset-0 z-0 opacity-[0.18]" />
 
       <div
         ref={ref}
-        className={`relative z-10 mx-auto max-w-5xl px-6 text-center transition-all duration-1000 sm:px-12 ${
+        className={`relative z-10 mx-auto grid w-full max-w-7xl gap-10 transition-all duration-1000 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.9fr)] lg:items-end ${
           visible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
         }`}
       >
-        <div className="mb-6 font-mono text-[10px] uppercase tracking-[0.3em] text-[#6affcc] sm:text-xs">
-          Designer & Creative Director — Ahmedabad
+        <div>
+        <div className="mb-6 inline-flex items-center gap-2 border border-[#6affcc]/35 bg-[#6affcc]/8 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[#6affcc] sm:text-xs">
+          <Sparkles size={13} />
+          Creative systems lab / Ahmedabad
         </div>
-        <h1 className="cinematic-title text-[15vw] font-light leading-[0.8] text-[#f5f0e8] sm:text-[12vw] md:text-[10vw]">
-          DARSH
+        <h1 className="cinematic-title max-w-5xl text-5xl font-light leading-[0.92] text-[#f5f0e8] sm:text-6xl md:text-[4.9rem] lg:text-[5.6rem]">
+          Darsh builds tools for the creative endgame.
         </h1>
-        <p className="mx-auto mt-6 max-w-md text-sm leading-6 text-[#5a5148] sm:mt-8 sm:text-base">
-          Creative direction, campaigns, and AI workflows for brands that refuse to be average.
+        <p className="mt-5 max-w-2xl text-base leading-7 text-[#bdb4aa] sm:text-lg sm:leading-8">
+          Creative director turning brand work, AI workflows, Adobe pipelines, and production chaos into sharp little systems that actually ship.
         </p>
-        <div className="mt-10 flex items-center justify-center gap-4">
+        <div className="mt-6 flex flex-wrap gap-3">
+          <a
+            href="#projects"
+            className="inline-flex h-11 items-center gap-2 border border-[#6affcc]/55 bg-[#6affcc]/12 px-5 text-sm font-semibold text-[#6affcc] transition hover:bg-[#6affcc]/20"
+          >
+            See the machines
+            <ArrowUpRight size={15} />
+          </a>
+          <a
+            href="mailto:hello@darsh.us"
+            className="inline-flex h-11 items-center gap-2 border border-[#f5f0e8]/15 px-5 text-sm text-[#f5f0e8] transition hover:border-[#ff8b70] hover:text-[#ffb199]"
+          >
+            Start a project
+            <Mail size={15} />
+          </a>
+        </div>
+        </div>
+
+        <div className="border border-[#f5f0e8]/12 bg-[#0a0a0a]/80 p-4 shadow-2xl shadow-black/30 sm:p-5">
+          <div className="flex items-center justify-between border-b border-[#f5f0e8]/10 pb-4">
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#ff8b70]">
+              Current obsessions
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#6affcc]">Live</span>
+          </div>
+          <div className="divide-y divide-[#f5f0e8]/8">
+            {labNotes.map((note, index) => (
+              <div className="flex items-center justify-between py-4" key={note}>
+                <span className="text-sm font-semibold text-[#f5f0e8] sm:text-base">{note}</span>
+                <span className="font-mono text-[10px] text-[#6affcc]/80">{String(index + 1).padStart(2, "0")}</span>
+              </div>
+            ))}
+          </div>
           <a
             href="#chapters"
-            className="inline-flex h-10 items-center gap-2 rounded-full border border-[#f5f0e8]/15 px-5 text-xs text-[#bdb4aa] transition hover:border-[#6affcc] hover:text-[#6affcc] sm:text-sm"
+            className="mt-5 inline-flex w-full items-center justify-between border border-[#f5f0e8]/12 px-4 py-3 text-sm text-[#bdb4aa] transition hover:border-[#6affcc]/45 hover:text-[#6affcc]"
           >
-            Explore the work
-            <ChevronDown size={14} />
+            Graphic campaigns below
+            <ChevronDown size={15} />
           </a>
         </div>
       </div>
@@ -174,7 +221,7 @@ function AboutSection() {
   const { ref, visible } = useScrollReveal();
 
   return (
-    <section className="border-t border-[#f5f0e8]/8 px-6 py-20 sm:px-12 sm:py-28" id="studio">
+    <section className="border-t border-[#f5f0e8]/8 px-6 py-20 sm:px-12 sm:py-28" id="lab">
       <div
         ref={ref}
         className={`mx-auto max-w-6xl transition-all duration-800 ${
@@ -182,25 +229,28 @@ function AboutSection() {
         }`}
       >
         <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#6affcc] sm:text-xs">
-          Studio
+          Lab
         </span>
+        <h2 className="mt-5 max-w-4xl text-3xl font-semibold leading-tight text-[#f5f0e8] sm:text-5xl">
+          The sweet spot is where taste meets automation and the deadline starts sweating.
+        </h2>
         <div className="mt-8 grid gap-10 sm:grid-cols-3 sm:gap-12">
           <div>
             <h3 className="text-lg font-semibold text-[#f5f0e8] sm:text-xl">Creative Systems</h3>
             <p className="mt-3 text-sm leading-6 text-[#8d867e]">
-              Brand logic, motion rules, production rituals, and reusable taste.
+              Brand logic, campaign rules, reusable visual decisions, and production rituals that keep work consistent.
             </p>
           </div>
           <div>
             <h3 className="text-lg font-semibold text-[#f5f0e8] sm:text-xl">AI Workflow Design</h3>
             <p className="mt-3 text-sm leading-6 text-[#8d867e]">
-              Model chains, creative QA, and automations that survive real work.
+              Prompt systems, image QA, ComfyUI support tools, and automations that survive real production instead of dying in demo land.
             </p>
           </div>
           <div>
             <h3 className="text-lg font-semibold text-[#f5f0e8] sm:text-xl">Prototype Builds</h3>
             <p className="mt-3 text-sm leading-6 text-[#8d867e]">
-              Small apps, scripts, bridges, and tools that make the boring part obedient.
+              Small apps, scripts, Adobe bridges, and internal dashboards that make the boring part obedient.
             </p>
           </div>
         </div>
@@ -217,7 +267,7 @@ function AboutSection() {
           </div>
           <div>
             <p className="text-2xl font-bold text-[#f5f0e8] sm:text-3xl">27+</p>
-            <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#5a5148] sm:text-xs">Open source tools</p>
+            <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#5a5148] sm:text-xs">Public tools</p>
           </div>
         </div>
       </div>
@@ -227,11 +277,14 @@ function AboutSection() {
 
 function SignalsSection() {
   return (
-    <section className="border-t border-[#f5f0e8]/8 px-6 py-16 sm:px-12 sm:py-24" id="signals">
-      <div className="mx-auto max-w-6xl" id="contact">
+    <section className="border-t border-[#f5f0e8]/8 px-6 py-16 sm:px-12 sm:py-24" id="contact">
+      <div className="mx-auto max-w-6xl">
         <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#6affcc] sm:text-xs">
-          Signals
+          Contact
         </span>
+        <h2 className="mt-4 max-w-2xl text-2xl font-semibold leading-tight text-[#f5f0e8] sm:text-4xl">
+          Bring a messy creative problem. Leave with a machine that behaves.
+        </h2>
         <div className="mt-6 grid gap-2 sm:mt-8 sm:grid-cols-2">
           <a
             className="flex items-center justify-between rounded-lg border border-[#6affcc]/45 bg-[#6affcc]/10 p-4 text-[#f5f0e8] transition hover:bg-[#6affcc]/16 sm:p-5"
@@ -244,20 +297,16 @@ function SignalsSection() {
           </a>
           {socialLinks.map((link) => (
             <a
-              className={`flex items-center justify-between rounded-lg border p-4 transition sm:p-5 ${
-                link.status === "live"
-                  ? "border-[#6affcc]/45 bg-[#6affcc]/10 text-[#f5f0e8] hover:bg-[#6affcc]/16"
-                  : "border-[#f5f0e8]/12 bg-[#f5f0e8]/5 text-[#8d867e]"
-              }`}
+              className="flex items-center justify-between rounded-lg border border-[#f5f0e8]/12 bg-[#f5f0e8]/5 p-4 text-[#f5f0e8] transition hover:border-[#6affcc]/45 hover:bg-[#6affcc]/10 sm:p-5"
               href={link.href}
               key={link.label}
-              rel={link.status === "live" ? "noreferrer" : undefined}
-              target={link.status === "live" ? "_blank" : undefined}
+              rel="noreferrer"
+              target="_blank"
             >
               <span className="text-lg font-semibold sm:text-2xl">{link.label}</span>
               <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] sm:gap-2 sm:text-xs">
                 {link.status}
-                {link.status === "live" ? <ExternalLink size={14} /> : null}
+                <ExternalLink size={14} />
               </span>
             </a>
           ))}
@@ -295,12 +344,10 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
             ))}
             <a
               className="ml-2 flex h-8 items-center gap-1.5 rounded-md border border-[#f5f0e8]/15 px-3 text-xs font-semibold text-[#f5f0e8] transition hover:border-[#6affcc] hover:text-[#6affcc]"
-              href="https://x.com/Darshd9941"
-              rel="noreferrer"
-              target="_blank"
+              href="mailto:hello@darsh.us"
             >
-              <Radio size={12} />
-              X / Darshd9941
+              <Mail size={12} />
+              Start a project
             </a>
           </div>
 
@@ -334,14 +381,12 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
               </a>
             ))}
             <a
-              href="https://x.com/Darshd9941"
-              target="_blank"
-              rel="noreferrer"
+              href="mailto:hello@darsh.us"
               onClick={closeMenu}
               className="mt-2 flex items-center gap-3 rounded-md border border-[#f5f0e8]/12 px-3 py-3 text-sm text-[#f5f0e8] transition hover:border-[#6affcc]"
             >
-              <Radio size={14} />
-              X / Darshd9941
+              <Mail size={14} />
+              Start a project
             </a>
           </div>
         )}
@@ -389,21 +434,31 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
           </section>
         )}
 
-        {/* About / Studio */}
+        {/* About / Lab */}
         <AboutSection />
 
-        {/* Signals */}
+        {/* Contact */}
         <SignalsSection />
 
-        {/* Projects / Toolbox */}
+        {/* Projects */}
         <section className="border-t border-[#f5f0e8]/8 bg-[#0a0a0a] px-6 py-16 sm:px-12 sm:py-20" id="projects">
           <div className="mx-auto max-w-6xl">
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#6affcc] sm:text-xs">
-              Toolbox
+              Projects
             </span>
             <h2 className="mt-4 max-w-2xl text-2xl font-semibold leading-tight text-[#f5f0e8] sm:text-3xl">
-              Public builds and experiments behind the practice.
+              Public builds from the workshop floor.
             </h2>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {repoThemes.map((theme) => (
+                <span
+                  key={theme}
+                  className="border border-[#f5f0e8]/12 bg-[#050505] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-[#bdb4aa]"
+                >
+                  {theme}
+                </span>
+              ))}
+            </div>
             <div className="mt-8 grid gap-2 sm:grid-cols-2">
               {repos.slice(0, 8).map((repo) => (
                 <a
@@ -445,14 +500,14 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
             <div>
               <a className="font-mono text-sm uppercase tracking-[0.18em] text-[#f5f0e8]" href="#">Darsh</a>
               <p className="mt-3 max-w-xs text-sm leading-6 text-[#8d867e]">
-                Designer & creative director building sharper ways to make things.
+                Creative director building campaign systems, AI workflows, and tiny useful machines.
               </p>
             </div>
             <div className="flex gap-10">
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#6affcc]">Navigate</p>
                 <div className="mt-3 flex flex-col gap-2">
-                  {["Studio", "Graphics", "Projects", "Signals"].map((item) => (
+                  {["Lab", "Graphics", "Projects", "Contact"].map((item) => (
                     <a key={item} href={`#${item.toLowerCase()}`} className="text-sm text-[#bdb4aa] transition hover:text-[#6affcc]">
                       {item}
                     </a>
@@ -462,9 +517,9 @@ export function PublicHome({ repos }: { repos: PublicRepo[] }) {
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#6affcc]">Connect</p>
                 <div className="mt-3 flex flex-col gap-2">
-                  <a href="https://x.com/Darshd9941" target="_blank" rel="noreferrer" className="text-sm text-[#bdb4aa] transition hover:text-[#6affcc]">X</a>
-                  <a href="https://github.com/darshd9941" target="_blank" rel="noreferrer" className="text-sm text-[#bdb4aa] transition hover:text-[#6affcc]">GitHub</a>
-                  <a href="mailto:hello@darsh.us" className="text-sm text-[#bdb4aa] transition hover:text-[#6affcc]">Email</a>
+                  <a href="mailto:hello@darsh.us" className="inline-flex items-center gap-2 text-sm text-[#bdb4aa] transition hover:text-[#6affcc]"><Mail size={13} /> Email</a>
+                  <a href="https://github.com/darshd9941" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-[#bdb4aa] transition hover:text-[#6affcc]"><ExternalLink size={13} /> GitHub</a>
+                  <a href="https://x.com/Darshd9941" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-[#bdb4aa] transition hover:text-[#6affcc]"><Radio size={13} /> X</a>
                 </div>
               </div>
             </div>

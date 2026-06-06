@@ -85,6 +85,15 @@ a {
   background-size: 256px 256px;
 }
 
+.lab-grid {
+  background-image:
+    linear-gradient(rgba(106, 255, 204, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(106, 255, 204, 0.12) 1px, transparent 1px),
+    linear-gradient(rgba(255, 139, 112, 0.08) 1px, transparent 1px);
+  background-size: 72px 72px, 72px 72px, 12px 12px;
+  mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+}
+
 /* Chapter scroll transition */
 .chapter-section {
   opacity: 0;
@@ -117,6 +126,6 @@ a {
 /* Switch to serif for cinematic headings */
 .cinematic-title {
   font-weight: 300;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   line-height: 0.9;
 }

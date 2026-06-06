@@ -58,13 +58,13 @@ const knowledgeBase: KnowledgeEntry[] = [
   {
     keywords: ["contact", "reach", "email", "hire", "collab", "dm", "message", "twitter", "x "],
     response:
-      "The fastest way to reach me is on X (Twitter) @Darshd9941. I check DMs there first. Email is coming once MX records are configured.",
-    link: { label: "X / Darshd9941", href: "https://x.com/Darshd9941" },
+      "The fastest way to reach me is email at hello@darsh.us. You can also find me on X as @Darshd9941 if the inbox starts looking too civilized.",
+    link: { label: "Email Darsh", href: "mailto:hello@darsh.us" },
   },
   {
     keywords: ["project", "github", "repo", "code", "open source", "build", "show"],
     response:
-      "I have 27+ public repos on GitHub — tools for motion design, AI workflows, brand systems, and creative ops. Scroll down to the Projects section to explore them all, or check my GitHub directly.",
+      "I have 31 public repos on GitHub — tools for motion design, AI workflows, brand systems, and creative ops. Scroll down to the Projects section to explore them all, or check my GitHub directly.",
     link: { label: "View Projects", href: "#projects" },
   },
   {
