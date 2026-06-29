@@ -16,14 +16,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://darsh.us"),
   title: {
-    default: "Darsh — Creative Systems Lab",
+    default: "Darsh — Motion, Editing & Creative Systems",
     template: "%s | Darsh.us",
   },
   description:
-    "Darsh is a creative director building campaign systems, AI workflows, Adobe automation, and practical tools for modern creative production.",
+    "Darsh is a motion-minded designer and editor building campaign systems, AI-assisted creative work, and practical tools for modern production.",
   keywords: [
     "Darsh",
-    "creative director",
+    "motion designer",
+    "video editor",
     "designer",
     "AI workflow",
     "Adobe automation",
@@ -43,23 +44,23 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://darsh.us",
     siteName: "Darsh.us",
-    title: "Darsh — Creative Systems Lab",
+    title: "Darsh — Motion, Editing & Creative Systems",
     description:
-      "Campaign systems, AI workflows, Adobe automation, and practical creative tools built by Darsh.",
+      "Motion, editing, campaign design and creative production systems built by Darsh.",
     images: [
       {
         url: "/hero.jpg",
         width: 1600,
         height: 900,
-        alt: "Darsh — Creative Systems Lab",
+        alt: "Darsh — Motion, Editing & Creative Systems",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Darsh — Creative Systems Lab",
+    title: "Darsh — Motion, Editing & Creative Systems",
     description:
-      "Campaign systems, AI workflows, Adobe automation, and practical creative tools built by Darsh.",
+      "Motion, editing, campaign design and creative production systems built by Darsh.",
     creator: "@Darshd9941",
     images: ["/hero.jpg"],
   },
