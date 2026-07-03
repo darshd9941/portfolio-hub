@@ -21,7 +21,7 @@ export function SiteHeader({ inverted = false }: { inverted?: boolean }) {
           </Link>
         ))}
       </nav>
-      <a className="header-cta" href="mailto:hello@darsh.us">
+      <a className="header-cta" href="mailto:djdarshan9941@gmail.com">
         Available for work <ArrowUpRight size={15} />
       </a>
     </header>
@@ -35,7 +35,7 @@ export function SiteFooter() {
         <p className="kicker">Freelance / Full-time / Interesting trouble</p>
         <h2>Have a brief, a role, or a timeline on fire?</h2>
       </div>
-      <a href="mailto:hello@darsh.us">hello@darsh.us <ArrowUpRight size={22} /></a>
+      <a href="mailto:djdarshan9941@gmail.com">djdarshan9941@gmail.com <ArrowUpRight size={22} /></a>
       <div className="footer-meta">
         <span>Ahmedabad, India</span>
         <span>Motion · Editing · Creative systems</span>

@@ -58,8 +58,8 @@ const knowledgeBase: KnowledgeEntry[] = [
   {
     keywords: ["contact", "reach", "email", "hire", "collab", "dm", "message", "twitter", "x "],
     response:
-      "The fastest way to reach me is email at hello@darsh.us. You can also find me on X as @Darshd9941 if the inbox starts looking too civilized.",
-    link: { label: "Email Darsh", href: "mailto:hello@darsh.us" },
+      "The fastest way to reach me is email at djdarshan9941@gmail.com. You can also find me on X as @Darshd9941 if the inbox starts looking too civilized.",
+    link: { label: "Email Darsh", href: "mailto:djdarshan9941@gmail.com" },
   },
   {
     keywords: ["project", "github", "repo", "code", "open source", "build", "show"],
