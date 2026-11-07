@@ -2,10 +2,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowDown, ArrowUpRight, Play } from "lucide-react";
+import dynamic from "next/dynamic";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { Mascot } from "./mascot";
 import { SiteFooter, SiteHeader } from "./site-frame";
 import { portfolioProjects } from "@/data/portfolio";
+
+const HopeMachine = dynamic(() => import("./hope-machine").then((module) => module.HopeMachine), {
+  loading: () => <div className="hope-machine-loading" aria-label="Hope engine waking" />,
+});
 
 function ProjectVisual({ project, priority = false }: { project: (typeof portfolioProjects)[number]; priority?: boolean }) {
   if (project.hero.type === "video") {
@@ -36,7 +41,7 @@ export function PublicHome() {
 
       <section className="new-hero">
         <div className="hero-copy">
-          <p className="kicker hero-kicker">Darsh / Motion-minded creative</p>
+          <p className="kicker hero-kicker">Darsh / Motion, systems, hopeful trouble</p>
           <h1>I make ads <em>move.</em><br />Then I make the workflow behave.</h1>
           <p className="hero-deck">
             Motion design, editing and AI-assisted creative production for brands that would prefer not to look dead on arrival.
@@ -47,17 +52,7 @@ export function PublicHome() {
           </div>
         </div>
 
-        <div className="hero-stage-new">
-          <div className="hero-video-card">
-            <video autoPlay muted loop playsInline preload="auto" poster="/portfolio/still/dreamy.jpg">
-              <source src="/portfolio/video/dreamy-aesthetic.mp4" type="video/mp4" />
-            </video>
-            <span><Play size={13} fill="currentColor" /> Dreamy aesthetic / 00:26</span>
-          </div>
-          <Mascot className="hero-mascot" />
-          <span className="scribble scribble-one">cut here ↘</span>
-          <span className="scribble scribble-two">still rendering...</span>
-        </div>
+        <div className="hero-stage-new"><HopeMachine /></div>
 
         <a className="hero-scroll" href="#selected">Selected work <ArrowDown size={16} /></a>
       </section>
