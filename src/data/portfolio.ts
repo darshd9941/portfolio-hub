@@ -5,8 +5,17 @@ export type PortfolioMedia = {
   poster?: string;
 };
 
+export type Track = "motion" | "campaign" | "systems";
+
 export type PortfolioProject = {
   slug: string;
+  /** Short clip name used on the timeline, e.g. "Curtain Theory". */
+  name: string;
+  /** Which timeline track the project sits on. */
+  track: Track;
+  client: string;
+  /** Delivery format shown on badges, e.g. "9:16 · reel". */
+  format: string;
   title: string;
   eyebrow: string;
   year: string;
@@ -23,6 +32,10 @@ export type PortfolioProject = {
 export const portfolioProjects: PortfolioProject[] = [
   {
     slug: "rakhi-gifting-system",
+    name: "Rakhi gifting system",
+    track: "campaign",
+    client: "Urban Space",
+    format: "1:1 · 6 frames",
     title: "A Rakhi campaign built like a small world",
     eyebrow: "Campaign system / Urban Space",
     year: "2026",
@@ -51,6 +64,10 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     slug: "dreamy-aesthetic-reel",
+    name: "Dreamy aesthetic",
+    track: "motion",
+    client: "Urban Space",
+    format: "9:16 · 00:26",
     title: "A dreamy edit with an actual pulse",
     eyebrow: "Motion edit / Social campaign",
     year: "2026",
@@ -81,6 +98,10 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     slug: "curtain-theory",
+    name: "Curtain Theory",
+    track: "motion",
+    client: "Urban Space",
+    format: "9:16 · reel",
     title: "One curtain. One room. One suspiciously strong vibe.",
     eyebrow: "Social video / Curtain Theory",
     year: "2026",
@@ -113,6 +134,10 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     slug: "payday-offer-film",
+    name: "Payday",
+    track: "motion",
+    client: "Urban Space",
+    format: "4:5 · campaign film",
     title: "Making an offer feel larger than a red price badge",
     eyebrow: "Motion campaign / Payday",
     year: "2026",
@@ -145,6 +170,10 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     slug: "creative-automation",
+    name: "Creative tools",
+    track: "systems",
+    client: "Independent",
+    format: "Code · ongoing",
     title: "Tools for the part nobody puts in the moodboard",
     eyebrow: "Creative systems / Independent builds",
     year: "Ongoing",

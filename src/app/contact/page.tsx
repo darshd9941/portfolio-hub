@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
-import { ArrowUpRight } from "lucide-react";
-import { Mascot } from "@/components/mascot";
-import { SiteHeader } from "@/components/site-frame";
+import { BriefBuilder } from "@/components/brief-builder";
+import { Suite } from "@/components/suite";
 
 export const metadata: Metadata = { title: "Contact", description: "Contact Darsh for freelance work or full-time creative roles." };
+
 export default function ContactPage() {
   return (
-    <main className="portfolio-site contact-page"><SiteHeader inverted />
-      <section className="contact-stage"><p className="kicker">Freelance + full-time</p><h1>Let’s make something people don’t scroll past.</h1><p>Campaigns, motion edits, creative production systems—or a role where those things collide in an interesting way.</p><a className="contact-email" href="mailto:djdarshan9941@gmail.com">djdarshan9941@gmail.com <ArrowUpRight size={34} /></a><div className="contact-links"><a href="https://github.com/darshd9941">GitHub ↗</a><a href="https://x.com/Darshd9941">X ↗</a><span>Ahmedabad, India</span></div><Mascot /></section>
-    </main>
+    <Suite file="RENDER QUEUE · NEW JOB">
+      <section className="wrap" style={{ paddingBlock: "clamp(32px, 5vw, 64px) 32px" }}>
+        <p className="label" style={{ color: "var(--play)", marginBottom: 14 }}>● REC · Freelance + full-time</p>
+        <h1 className="disp h1">Let&apos;s make something people don&apos;t scroll past.</h1>
+        <p className="lede" style={{ marginTop: 20 }}>Campaigns, motion edits, creative production systems — or a role where those things collide in an interesting way.</p>
+      </section>
+      <BriefBuilder />
+    </Suite>
   );
 }

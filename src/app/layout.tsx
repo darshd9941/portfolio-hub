@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Archivo's width axis gives the condensed display titles; JetBrains Mono
+// carries every timecode, label and piece of metadata.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
+  axes: ["wdth"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrains = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
 });
 
@@ -34,6 +37,7 @@ export const metadata: Metadata = {
     "portfolio",
   ],
   authors: [{ name: "Darsh" }],
+  alternates: { canonical: "./" },
   creator: "Darsh",
   icons: {
     icon: "/favicon.svg",
@@ -87,14 +91,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${archivo.variable} ${jetbrains.variable}`}
     >
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/favicon.svg" />
-        <link rel="canonical" href="https://darsh.us" />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body>
         {GA_ID && (
           <>
             <Script

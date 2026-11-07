@@ -1,241 +1,115 @@
-import { campaigns, getCampaignBySlug } from "@/data/campaigns";
-import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import Link from "next/link";
+import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Suite } from "@/components/suite";
+import { campaigns, getCampaignBySlug } from "@/data/campaigns";
 import { sizeOf } from "@/data/image-sizes";
+import { ratioOf } from "@/lib/formats";
 
 export function generateStaticParams() {
   return campaigns.map((c) => ({ slug: c.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const campaign = getCampaignBySlug(slug);
   if (!campaign) return {};
   return {
-    title: `${campaign.title} — Darsh.us`,
+    title: campaign.title,
     description: campaign.subtitle,
+    openGraph: { images: [campaign.images[0]] },
   };
 }
 
-export default async function CampaignPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function CampaignPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const campaign = getCampaignBySlug(slug);
   if (!campaign) notFound();
 
-  const currentIndex = campaigns.findIndex((c) => c.slug === slug);
-  const nextCampaign = campaigns[(currentIndex + 1) % campaigns.length];
-  const prevCampaign =
-    campaigns[(currentIndex - 1 + campaigns.length) % campaigns.length];
+  const index = campaigns.findIndex((c) => c.slug === slug);
+  const others = [...campaigns.slice(index + 1), ...campaigns.slice(0, index)];
+  const [w, h] = sizeOf(campaign.images[0]);
+  const ratios = [...new Set(campaign.images.map(ratioOf))].join(" · ");
 
   return (
-    <main className="min-h-screen bg-[#050505] text-[#f5f0e8]">
-      {/* Sticky Nav */}
-      <nav className="sticky top-0 z-50 border-b border-[#f5f0e8]/10 bg-[#050505]/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-          <Link
-            className="font-mono text-sm uppercase tracking-[0.18em] text-[#f5f0e8] transition hover:text-[#6affcc]"
-            href="/"
-          >
-            Darsh.us
-          </Link>
-          <div className="flex items-center gap-6">
-            <span className="hidden font-mono text-xs text-[#8d867e] sm:block">
-              {String(currentIndex + 1).padStart(2, "0")} / {String(campaigns.length).padStart(2, "0")}
-            </span>
-            <Link
-              className="inline-flex h-9 items-center gap-2 rounded-md border border-[#f5f0e8]/18 px-3 text-sm text-[#bdb4aa] transition hover:border-[#6affcc] hover:text-[#6affcc]"
-              href="/#graphics"
-            >
-              <ArrowLeft size={14} />
-              All campaigns
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero — full bleed */}
-      <section className="relative">
-        <div className="relative aspect-[21/9] w-full overflow-hidden sm:aspect-[21/8]">
-          <Image
-            src={campaign.images[0]}
-            alt={campaign.title}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
-        </div>
-        <div className="absolute bottom-0 left-0 w-full px-5 pb-10 sm:px-8">
-          <div className="mx-auto max-w-7xl">
-            <span className="rounded-md bg-[#6affcc] px-3 py-1 text-xs font-bold text-[#06120f]">
-              {campaign.category}
-            </span>
-            <h1 className="mt-4 text-4xl font-semibold leading-[0.95] text-[#f5f0e8] sm:text-6xl lg:text-7xl">
-              {campaign.title}
-            </h1>
-            <p className="mt-3 max-w-xl text-base text-[#bdb4aa] sm:text-lg">
-              {campaign.subtitle}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Problem → Solution → Impact */}
-      <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
-        <div className="grid gap-6 lg:grid-cols-[1fr_1px_1fr_1px_1fr]">
-          {/* Problem */}
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ff6a4a]/15 font-mono text-sm text-[#ff8b70]">
-                1
-              </span>
-              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[#ff8b70]">
-                The Problem
-              </span>
+    <Suite file={`BIN / CAMPAIGNS / ${campaign.slug.toUpperCase()}`}>
+      <div className="track-campaign">
+        <section className="wrap" style={{ paddingBlock: "clamp(28px, 4vw, 56px) 24px" }}>
+          <div className="section-head" style={{ marginBottom: 0 }}>
+            <div className="stack" style={{ gap: 14 }}>
+              <Link className="text-link" href="/work?type=campaign" style={{ alignSelf: "flex-start" }}>← All campaigns</Link>
+              <p className="label" style={{ color: "var(--track)" }}>● V1 · Campaign graphics · {campaign.category} · {String(index + 1).padStart(2, "0")} / {campaigns.length}</p>
+              <h1 className="disp h1">{campaign.title.replace(/^Urbanspace /, "")}</h1>
+              <p className="lede">{campaign.subtitle}</p>
             </div>
-            <p className="text-base leading-7 text-[#bdb4aa]">
-              {campaign.problem}
-            </p>
+            <dl className="props-dl panel" style={{ minWidth: 260 }}>
+              <dt>Client</dt><dd>Urban Space</dd>
+              <dt>Frames</dt><dd>{campaign.images.length}</dd>
+              <dt>Format</dt><dd>{ratios}</dd>
+              <dt style={{ borderBottom: 0 }}>Master</dt><dd style={{ borderBottom: 0 }}>{w}×{h}</dd>
+            </dl>
           </div>
+        </section>
 
-          <div className="hidden bg-[#f5f0e8]/10 lg:block" />
-
-          {/* Solution */}
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#6affcc]/15 font-mono text-sm text-[#6affcc]">
-                2
-              </span>
-              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[#6affcc]">
-                Our Solution
-              </span>
+        <section className="wrap section">
+          <div className="sheet">
+            <div className="sheet-head">
+              <span>CONTACT SHEET · {campaign.slug.toUpperCase()} · {campaign.images.length} FRAMES</span>
+              <span>APPROVED ✓</span>
             </div>
-            <p className="text-base leading-7 text-[#bdb4aa]">
-              {campaign.solution}
-            </p>
-          </div>
-
-          <div className="hidden bg-[#f5f0e8]/10 lg:block" />
-
-          {/* Impact */}
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ff6a4a]/15 font-mono text-sm text-[#ff8b70]">
-                3
-              </span>
-              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[#ff8b70]">
-                The Impact
-              </span>
+            <div className="sheet-grid">
+              {campaign.images.map((src, i) => {
+                const [iw, ih] = sizeOf(src);
+                return (
+                  <figure className="frame" key={src}>
+                    <Image
+                      src={src}
+                      alt={`${campaign.title} — frame ${i + 1} of ${campaign.images.length}`}
+                      width={iw}
+                      height={ih}
+                      priority={i === 0}
+                      sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 25vw"
+                    />
+                    <figcaption>
+                      <span>{String(i + 1).padStart(2, "0")}A</span>
+                      <span>{ratioOf(src)} · {iw}×{ih}</span>
+                    </figcaption>
+                  </figure>
+                );
+              })}
             </div>
-            <p className="text-base leading-7 text-[#bdb4aa]">
-              {campaign.impact}
-            </p>
           </div>
+        </section>
+
+        <section className="wrap section">
+          <div className="trio">
+            <div className="track-systems"><p className="label">◆ The brief</p><p>{campaign.problem}</p></div>
+            <div className="track-campaign"><p className="label">◆ The idea</p><p>{campaign.solution}</p></div>
+            <div className="track-play"><p className="label">◆ The impact</p><p>{campaign.impact}</p></div>
+          </div>
+          <div className="services" style={{ marginTop: 28 }}>
+            {campaign.tags.map((tag) => <span key={tag}>{tag}</span>)}
+          </div>
+        </section>
+      </div>
+
+      <section className="section" style={{ borderTop: "1px solid var(--line)" }}>
+        <div className="wrap section-head" style={{ paddingTop: 24, marginBottom: 16 }}>
+          <p className="label">Filmstrip · {others.length} more campaigns · scroll →</p>
+          <Link className="text-link" href="/work?type=campaign">Open the bin</Link>
         </div>
-      </section>
-
-      {/* Gallery — masonry-like layout */}
-      <section className="border-t border-[#f5f0e8]/10 bg-[#0b0b0b] px-5 py-20 sm:px-8">
-        <div className="mx-auto max-w-7xl">
-          <p className="font-mono text-sm uppercase tracking-[0.18em] text-[#6affcc]">
-            Creative assets
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
-            The work
-          </h2>
-          <p className="mt-3 max-w-xl text-[#8d867e]">
-            Visuals designed for this campaign across platforms and formats.
-          </p>
-
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {campaign.images.map((src, i) => (
-              <div
-                key={i}
-                className={`group overflow-hidden rounded-lg border border-[#f5f0e8]/8 transition hover:border-[#6affcc]/40 ${
-                  i === 0 ? "sm:col-span-2 sm:row-span-2" : ""
-                }`}
-              >
-                <Image
-                  src={src}
-                  alt={`${campaign.title} — visual ${i + 1} of ${campaign.images.length}`}
-                  width={sizeOf(src)[0]}
-                  height={sizeOf(src)[1]}
-                  sizes={i === 0 ? "(max-width: 640px) 100vw, 66vw" : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"}
-                  className="h-auto w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-                />
-              </div>
+        <div className="filmstrip">
+          <div className="filmstrip-row">
+            {others.map((c, i) => (
+              <Link href={`/graphics/${c.slug}`} key={c.slug}>
+                <Image src={c.images[0]} alt={c.title} width={170} height={220} sizes="170px" />
+                <span>{String(i + 1).padStart(2, "0")} · {c.title.replace(/^Urbanspace /, "")}</span>
+              </Link>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Tags */}
-      <section className="px-5 py-12 sm:px-8">
-        <div className="mx-auto max-w-7xl">
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-[#8d867e]">
-            Skills & tools
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {campaign.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-md border border-[#f5f0e8]/12 bg-[#f5f0e8]/5 px-4 py-2 text-sm text-[#bdb4aa]"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Prev / Next Navigation */}
-      <section className="border-t border-[#f5f0e8]/10">
-        <div className="mx-auto grid max-w-7xl grid-cols-2">
-          <Link
-            href={`/graphics/${prevCampaign.slug}`}
-            className="group flex flex-col gap-2 border-r border-[#f5f0e8]/10 px-5 py-10 transition hover:bg-[#f5f0e8]/3 sm:px-8"
-          >
-            <span className="font-mono text-xs uppercase tracking-[0.12em] text-[#8d867e]">
-              ← Previous
-            </span>
-            <span className="text-lg font-semibold text-[#f5f0e8] transition group-hover:text-[#6affcc] sm:text-xl">
-              {prevCampaign.title}
-            </span>
-          </Link>
-          <Link
-            href={`/graphics/${nextCampaign.slug}`}
-            className="group flex flex-col items-end gap-2 px-5 py-10 transition hover:bg-[#f5f0e8]/3 sm:px-8"
-          >
-            <span className="font-mono text-xs uppercase tracking-[0.12em] text-[#8d867e]">
-              Next →
-            </span>
-            <span className="text-lg font-semibold text-[#f5f0e8] transition group-hover:text-[#6affcc] sm:text-xl">
-              {nextCampaign.title}
-            </span>
-          </Link>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-[#f5f0e8]/10 px-5 py-8 sm:px-8">
-        <div className="mx-auto flex max-w-7xl justify-between text-sm text-[#8d867e]">
-          <span>Darsh.us / graphics work</span>
-          <Link className="transition hover:text-[#6affcc]" href="/#graphics">
-            View all campaigns
-          </Link>
-        </div>
-      </footer>
-    </main>
+    </Suite>
   );
 }
