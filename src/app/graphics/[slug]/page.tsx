@@ -2,6 +2,8 @@ import { campaigns, getCampaignBySlug } from "@/data/campaigns";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import { sizeOf } from "@/data/image-sizes";
 
 export function generateStaticParams() {
   return campaigns.map((c) => ({ slug: c.slug }));
@@ -63,11 +65,14 @@ export default async function CampaignPage({
 
       {/* Hero — full bleed */}
       <section className="relative">
-        <div className="aspect-[21/9] w-full overflow-hidden sm:aspect-[21/8]">
-          <img
+        <div className="relative aspect-[21/9] w-full overflow-hidden sm:aspect-[21/8]">
+          <Image
             src={campaign.images[0]}
             alt={campaign.title}
-            className="h-full w-full object-cover"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
         </div>
@@ -161,10 +166,13 @@ export default async function CampaignPage({
                   i === 0 ? "sm:col-span-2 sm:row-span-2" : ""
                 }`}
               >
-                <img
+                <Image
                   src={src}
                   alt={`${campaign.title} — visual ${i + 1} of ${campaign.images.length}`}
-                  className="w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+                  width={sizeOf(src)[0]}
+                  height={sizeOf(src)[1]}
+                  sizes={i === 0 ? "(max-width: 640px) 100vw, 66vw" : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"}
+                  className="h-auto w-full object-cover transition duration-500 group-hover:scale-[1.02]"
                 />
               </div>
             ))}

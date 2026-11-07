@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { LazyVideo } from "./lazy-video";
 import { Mascot } from "./mascot";
 import { SiteFooter, SiteHeader } from "./site-frame";
 import { portfolioProjects } from "@/data/portfolio";
@@ -15,17 +16,7 @@ const HopeMachine = dynamic(() => import("./hope-machine").then((module) => modu
 function ProjectVisual({ project, priority = false }: { project: (typeof portfolioProjects)[number]; priority?: boolean }) {
   if (project.hero.type === "video") {
     return (
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload={priority ? "auto" : "metadata"}
-        poster={project.hero.poster}
-        aria-label={project.hero.alt}
-      >
-        <source src={project.hero.src} type="video/mp4" />
-      </video>
+      <LazyVideo src={project.hero.src} poster={project.hero.poster} label={project.hero.alt} />
     );
   }
 
